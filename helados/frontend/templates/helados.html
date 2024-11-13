@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <h1>Helados</h1>
+
+    <ul>
+        {% for helado in helados %}
+        <li>
+            <b>Marca: </b> {{ helado.marca }}
+            <p></p>
+
+            <b>Nombre: </b> {{ helado.nombre }}
+            <p></p>
+
+            <b>Cantidad: </b> {{ helado.cantidad }}
+            <p></p>
+
+            {% if helado.cantidad < 10 %}
+                <span class="alerta">Stock bajo</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

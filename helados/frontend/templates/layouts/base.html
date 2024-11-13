@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <title>Helados UV</title>
+    <link rel="stylesheet" href="{% static 'styles/alerta.css' %}">
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+            <li>
+                <a href="/logout">Cerrar sesion</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="/logout">Iniciar sesion</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</body>
+
+{% block content %}
+{% endblock %}
+
+</html>

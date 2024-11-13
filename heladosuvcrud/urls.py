@@ -1,5 +1,5 @@
 """
-URL configuration for heladosuvcrud project.
+URL configuration for djangocrud project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -16,7 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from helados import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home, name= 'home'),
+    path('singup/', views.singUp, name='singup'),
+    path('logout/', views.cerrarSesion, name='logout'),
+    path('singinA/', views.iniciarSesionAdmin, name='singinA'),
+    path('singinC/', views.iniciarSesionCajero, name='singinC'),
+    path('homeA/', views.homeAdmin, name='homeA'),
+    path('homeC/', views.homeCajero, name='homeC'),
+    path('agregarHelado/', views.agregarHelado, name='agregarHelado'),
+    path('helados/', views.mostrarHelados, name='helados'),
 ]
