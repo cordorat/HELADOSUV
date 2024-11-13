@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1>Inicio cajero</h1>
+
+{{error}}
+
+<form action="/singinC/" method="post">
+    {% csrf_token %}
+
+    {{form.as_p}}
+    <button>
+        Entrar
+    </button>
+
+</form>
+
+
+{% endblock %}
