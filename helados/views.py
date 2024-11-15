@@ -99,3 +99,6 @@ def mostrarHelados (request):
     return render (request, 'helados.html', {
         'helados' : helados
     })
+
+def politicas (request):
+    return render(request,'politicas.html')

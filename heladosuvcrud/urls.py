@@ -20,7 +20,7 @@ from helados import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name= 'home'),
+    path('',views.home, name='home'),
     path('singup/', views.singUp, name='singup'),
     path('logout/', views.cerrarSesion, name='logout'),
     path('singinA/', views.iniciarSesionAdmin, name='singinA'),
@@ -29,4 +29,5 @@ urlpatterns = [
     path('homeC/', views.homeCajero, name='homeC'),
     path('agregarHelado/', views.agregarHelado, name='agregarHelado'),
     path('helados/', views.mostrarHelados, name='helados'),
+    path('politicas/', views.politicas, name='politicas'),
 ]
