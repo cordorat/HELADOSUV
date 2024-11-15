@@ -1,21 +1,36 @@
-{% extends 'layouts/base.html' %}
-
-{% block content %}
-
-<h1>Inicio de Sesion</h1>
-<form action="singinA/">
-    <button>
-        Entrar como admin
-    </button>
-    <p>
-</form>
-
-<form action="singinC/">
-    </p>
-    <button>
-        Entrar como cajero
-    </button>
-</form>
-
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HELADOS UV</title>
+    <link rel="stylesheet" href="../static/styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="background-pattern"></div>
+        <div class="card">
+            <div class="icon-container">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <img src="../static/images/carrito-de-helados.png" alt="carrito de helados" class="mi-imagen">
+                </svg>
+            </div>
+            <br>
+            <br>
+            <a href="singinA" class="button">
+                ACCEDER COMO ADMIN
+            </a>
+            <a href="singinC" class="button">
+                ACCEDER COMO CAJERO
+            </a>
+            
+        </div>
+        <div class="footer">
+            <a href="politicas">Politicas</a>
+            <span>·</span>
+            <a href="#">Términos y condiciones</a>
+        </div>
+    </div>
+    
+</body>
+</html>
