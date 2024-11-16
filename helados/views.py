@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -96,8 +96,14 @@ def agregarHelado(request):
 
 def mostrarHelados (request):
     helados = Helado.objects.filter()
-    return render (request, 'helados.html', {
+    return render (request, 'lista_helados.html', {
         'helados' : helados
+    })
+
+def buscarHelado (request, helado_id):
+    helado = get_object_or_404(Helado, pk = helado_id)
+    return render(request, 'buscar_helado.html', {
+        'helado' : helado
     })
 
 def politicas (request):

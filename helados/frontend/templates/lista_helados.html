@@ -6,7 +6,8 @@
     <ul>
         {% for helado in helados %}
         <li>
-            <b>Marca: </b> {{ helado.marca }}
+            <a href="{% url 'buscarHelado' helado.id %}">
+                <b>Marca: </b> {{ helado.marca }}
             <p></p>
 
             <b>Nombre: </b> {{ helado.nombre }}
@@ -18,6 +19,7 @@
             {% if helado.cantidad < 10 %}
                 <span class="alerta">Stock bajo</span>
             {% endif %}
+            </a>
         </li>
         {% endfor %}
     </ul>
