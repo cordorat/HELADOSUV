@@ -102,3 +102,6 @@ def mostrarHelados (request):
 
 def politicas (request):
     return render(request,'politicas.html')
+
+def terminos (request):
+    return render(request,'terminos.html')

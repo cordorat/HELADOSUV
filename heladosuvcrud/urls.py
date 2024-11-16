@@ -30,4 +30,5 @@ urlpatterns = [
     path('agregarHelado/', views.agregarHelado, name='agregarHelado'),
     path('helados/', views.mostrarHelados, name='helados'),
     path('politicas/', views.politicas, name='politicas'),
+    path('terminos/', views.terminos, name = 'terminos'),
 ]
