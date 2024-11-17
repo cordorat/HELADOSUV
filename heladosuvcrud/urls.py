@@ -32,8 +32,9 @@ urlpatterns = [
 
     #CRUD Helado
     path('helados/', views.mostrarHelados, name='helados'),
-    path('helados/agregar_helado/', views.agregarHelado, name='agregarHelado'),   
-    path('helados/<int:helado_id>/', views.buscarHelado, name='buscarHelado'),
+    path('agregar_helado/', views.agregarHelado, name='agregarHelado'),   
+    path('buscar_helado/<int:helado_id>/', views.buscarHelado, name='buscarHelado'),
+    path('editar_helado/<int:helado_id>/', views.editar_helado, name='editarHelado'),
 
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),

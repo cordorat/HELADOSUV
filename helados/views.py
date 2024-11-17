@@ -89,25 +89,45 @@ def agregarHelado(request):
             nuevo_helado.save()
             return redirect('homeA')
         except ValueError:
-           return render(request, 'agregar_helado.html', {
-            'form': agregarHeladoForm,
-            'error': 'No se ha podido agregar el helado'
-        }) 
+            return render(request, 'agregar_helado.html', {
+                'form': agregarHeladoForm,
+                'error': 'No se ha podido agregar el helado'
+            })
 
-def mostrarHelados (request):
+
+def mostrarHelados(request):
     helados = Helado.objects.filter()
-    return render (request, 'lista_helados.html', {
-        'helados' : helados
+    return render(request, 'lista_helados.html', {
+        'helados': helados
     })
 
-def buscarHelado (request, helado_id):
-    helado = get_object_or_404(Helado, pk = helado_id)
+
+def buscarHelado(request, helado_id):
+    helado = get_object_or_404(Helado, pk=helado_id)
     return render(request, 'buscar_helado.html', {
-        'helado' : helado
+        'helado': helado
     })
 
-def politicas (request):
-    return render(request,'politicas.html')
 
-def terminos (request):
-    return render(request,'terminos.html')
+def editar_helado(request, helado_id):
+
+    if request.method == 'GET':
+        helado = get_object_or_404(Helado, pk=helado_id)
+        form = agregarHeladoForm(instance=helado)
+        return render(request, 'editar_helado.html', {'helado': helado, 'form': form})
+    else:
+        try:
+            helado = get_object_or_404(Helado, pk=helado_id)
+            form = agregarHeladoForm(request.POST, instance=helado)
+            form.save()
+            return redirect('helados')
+        except ValueError:
+            return render(request, 'editar_helado.html', {'helado': helado, 'form': form, 'error' : "Error, no se pudo actualizar."})
+
+
+def politicas(request):
+    return render(request, 'politicas.html')
+
+
+def terminos(request):
+    return render(request, 'terminos.html')

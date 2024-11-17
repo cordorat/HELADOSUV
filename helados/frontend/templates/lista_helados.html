@@ -13,13 +13,13 @@
             <b>Nombre: </b> {{ helado.nombre }}
             <p></p>
 
-            <b>Cantidad: </b> {{ helado.cantidad }}
+            <b>Descripcion: </b> {{ helado.descripcion }}
             <p></p>
 
-            {% if helado.cantidad < 10 %}
-                <span class="alerta">Stock bajo</span>
-            {% endif %}
             </a>
+            <br>
+            <!-- Botón de Editar -->
+            <a href="{% url 'editarHelado' helado.id %}" class="btn btn-primary">Editar</a>
         </li>
         {% endfor %}
     </ul>
