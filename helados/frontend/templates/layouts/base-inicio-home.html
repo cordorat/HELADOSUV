@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HELADOS UV</title>
+    <title>{% block title %}Título por defecto{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
 <body>
@@ -19,20 +19,12 @@
             </div>
             <br>
             <br>
-            <a href="singinA" class="button">
-                ACCEDER COMO ADMIN
-            </a>
-            <a href="singinC" class="button">
-                ACCEDER COMO CAJERO
-            </a>
+            {% block content%}
+            {% endblock %}
             
         </div>
-        <div class="footer">
-            <a href="politicas">Politicas</a>
-            <span>·</span>
-            <a href="terminos">Términos y condiciones</a>
-        </div>
+        
     </div>
-    
+
 </body>
 </html>
