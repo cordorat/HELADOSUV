@@ -9,9 +9,3 @@ class Helado (models.Model):
 
     def __str__(self):
         return "Marca: " + self.marca + " - " + "Nombre: " +self.nombre 
-
-
-class Empleado (models.Model):
-    nombre = models.CharField(max_length=200)
-    apellido = models.CharField(max_length=200)
-    documento = models.IntegerField (blank= False)
