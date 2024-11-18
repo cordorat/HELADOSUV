@@ -5,4 +5,4 @@ from .models import Helado
 class agregarHeladoForm(ModelForm):
     class Meta:
         model = Helado
-        fields = ['marca' , 'nombre', 'descripcion', 'valor']
+        fields = ['marca' , 'nombre', 'descripcion', 'activo' , 'valor']
