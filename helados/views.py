@@ -5,6 +5,8 @@ from django.contrib.auth import login, logout, authenticate
 import django.db
 from .forms import agregarHeladoForm
 from .models import Helado
+from .forms import CrearEmpleadoForm
+from .models import Empleado
 
 # Create your views here.
 
@@ -131,3 +133,40 @@ def politicas(request):
 
 def terminos(request):
     return render(request, 'terminos.html')
+
+
+def CrearEmpleado(request):
+    if request.method == 'GET':
+        return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm})
+    else:
+        try:
+            form=CrearEmpleadoForm(request.POST)
+            nuevo_empleado =form.save(commit=False)
+            nuevo_empleado.save()
+            return redirect('empleados')
+        except ValueError:
+            return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm, 'error': 'No se ha podido crear el perfil del Empleado'})
+
+
+
+def Empleados(request):
+    empleados = Empleado.objects.all()
+    return render(request, 'empleados.html', {'empleados': empleados})
+
+def BuscarEmpleado(request, empleado_id):
+    empleado = get_object_or_404(Empleado, pk=empleado_id)
+    return render(request, 'buscar_empleado.html', {'empleado': empleado})
+
+def EditarEmpleado(request, empleado_id):
+    if request.method == 'GET':
+        empleado = get_object_or_404(Empleado, pk=empleado_id)
+        form = CrearEmpleadoForm(instance=empleado)
+        return render(request, 'editar_empleado.html', {'empleado': empleado, 'form': form})
+    else:
+        try:
+            empleado = get_object_or_404(Empleado, pk=empleado_id)
+            form = CrearEmpleadoForm(request.POST, instance=empleado)
+            form.save()
+            return redirect('empleados')
+        except ValueError:
+            return render(request, 'editar_empleados.html', {'empleado': empleado, 'form': form, 'error' : "No se pudo editar el perfil de empleado."})
