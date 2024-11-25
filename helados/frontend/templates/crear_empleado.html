@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <h1>Crear Empleado</h1>
+
+    {{error}}
+
+    <form action="/crear_empleado/" method="POST">
+        {% csrf_token %}
+        {{form}}
+
+        <button>
+            Guardar
+        </button>
+    </form>
+{% endblock %}

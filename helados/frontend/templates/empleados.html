@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1> Empleados </h1>
+
+<ul>
+    {% for empleado in empleados %}
+    <li>
+        <a href="{% url 'buscar_empleado' empleado.id %}">
+            <h1>{{empleado.documento}}</h1>
+            <p> {{empleado.nombre}} </p>
+            <p> {{empleado.apellido}} </p>
+            <b>Activo: </b> {{ empleado.activo }}
+            <p></p>
+            </a>
+        
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
