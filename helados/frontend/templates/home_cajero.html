@@ -1,7 +1,45 @@
 {% extends 'layouts/base.html' %}
 
+{% block user %}
+Cajero
+{% endblock %}
+
 {% block content %}
 
     <h2 class="dashboard-heading">HOLA, CAJERO</h2>
+
+    <div class="container py-5">
+        <div class="row justify-content-center g-4">
+            <!-- Card 1 -->
+            <div class="col-12 col-md-4">
+                <div class="card p-3">
+                    <img src="../static/images/entrega-rapida.png" class="card-img-top" alt="Inventario">
+                    <div class="card-body">
+                        <h5 class="card-title">Pedidos</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-12 col-md-4">
+                <div class="card p-3">
+                    <img src="../static/images/entrega-rapida.png" class="card-img-top" alt="Reportes">
+                    <div class="card-body">
+                        <h5 class="card-title">Vendedores</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-12 col-md-4">
+                <div class="card p-3">
+                    <img src="../static/images/caja-registradora.png" class="card-img-top" alt="Empleados">
+                    <div class="card-body">
+                        <h5 class="card-title">Caja</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 {% endblock %}

@@ -5,14 +5,11 @@ Inicio Sesión | Helados UV
 {% endblock %}
 
 {% block content %}
-
 {{error}}
 
 <form action="/singinA/" method="post">
     {% csrf_token %}
-
     {{form.as_p}}
-
     <button>
         Entrar
     </button>

@@ -35,3 +35,53 @@ body {
     padding: 24px 32px 32px;
     margin: 0;
 }
+
+header {
+    padding: 10px 20px;
+    background-color: #4A6FF0; /* Color azul */
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    margin-right: 10px;
+    border-radius: 50%; /* Hace el ícono redondo */
+    width: 40px;
+    height: 40px;
+}
+
+header h1 {
+    font-size: 18px;
+    margin: 0;
+}
+
+h2 {
+    margin: 10px 10px; /* Espaciado para el saludo */
+    text-align: center;
+}
+
+.card {
+    border-radius: 33px;
+    background-color: #7EB2FF; /* Color azul claro */
+    text-align: center;
+    transition: transform 0.2s ease; /* Animación suave al pasar el mouse */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Aumenta el tamaño ligeramente */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+}
+
+.card-img {
+    width: 40px;
+    height: 40px;
+    margin: 20px auto;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    justify-content: center;
+    text-align: center;
+}
