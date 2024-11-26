@@ -7,6 +7,9 @@ from .forms import agregarHeladoForm
 from .models import Helado
 from .forms import CrearEmpleadoForm
 from .models import Empleado
+from .forms import PedidoForm
+from .forms import BusquedaForm
+from .forms import ClienteForm
 
 # Create your views here.
 
@@ -153,9 +156,18 @@ def Empleados(request):
     empleados = Empleado.objects.all()
     return render(request, 'empleados.html', {'empleados': empleados})
 
-def BuscarEmpleado(request, empleado_id):
-    empleado = get_object_or_404(Empleado, pk=empleado_id)
-    return render(request, 'buscar_empleado.html', {'empleado': empleado})
+def BuscarEmpleado(request):
+    form = BusquedaForm(request.GET)
+    print(form)
+    # Si el formulario se ha enviado con un término de búsqueda
+    empleados = Empleado.objects.all()  # Obtiene todos los empleados por defecto
+
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            empleados = empleados.filter(nombre__icontains=query)  # Filtra los empleados por nombre (insensible a mayúsculas/minúsculas)
+
+    return render(request, 'buscar_empleado.html', {'form': form, 'empleados': empleados})
 
 def EditarEmpleado(request, empleado_id):
     if request.method == 'GET':
@@ -170,3 +182,27 @@ def EditarEmpleado(request, empleado_id):
             return redirect('empleados')
         except ValueError:
             return render(request, 'editar_empleados.html', {'empleado': empleado, 'form': form, 'error' : "No se pudo editar el perfil de empleado."})
+        
+def CrearPedido(request):
+    if request.method == 'GET':
+        return render(request, 'crear_pedido.html', {
+            'form': PedidoForm, 'form1':ClienteForm
+        })
+    else:
+        try:
+            form = PedidoForm(request.POST)
+            form1 = ClienteForm(request.POST)
+            nuevo_cliente = form1.save()
+            
+            nuevo_pedido = form.save(commit=False)
+            nuevo_pedido.cliente = nuevo_cliente
+            
+            nuevo_pedido.save()
+            
+            
+            return redirect('homeA')
+        except ValueError:
+            return render(request, 'crear_pedido.html', {
+                'form': PedidoForm, 'form1':ClienteForm,
+                'error': 'No se ha podido crear el Pedido o el CLiente'
+            })
