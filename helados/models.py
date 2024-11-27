@@ -18,3 +18,15 @@ class Empleado (models.Model):
     telefono = models.IntegerField(blank= False, default=0)
     activo = models.BooleanField(default=True)
 
+class Cliente (models.Model):
+    nit = models.IntegerField(blank=False)
+    nombre= models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    direccion = models.CharField(max_length=50)
+
+
+class Pedido (models.Model):
+    codigo = models.IntegerField(blank=False)
+    fecha = models.DateTimeField(auto_now_add=True)
+    producto = models.ManyToManyField(Helado, related_name='pedidos')
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')

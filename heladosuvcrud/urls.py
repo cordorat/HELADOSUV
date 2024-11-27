@@ -38,9 +38,11 @@ urlpatterns = [
 
     path('crear_empleado/', views.CrearEmpleado, name='crearEmpleado'),
     path('empleados/', views.Empleados, name='empleados'),
-    path('buscar_empleado/<int:empleado_id>', views.BuscarEmpleado, name='buscar_empleado'),
+    path('buscar_empleado/', views.BuscarEmpleado, name='buscar_empleado'),
     path('editar_empleado/<int:empleado_id>/', views.EditarEmpleado, name='editar_empleado'),
 
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),
+
+    path('crear_pedido/', views.CrearPedido, name='crear_pedido'),
 ]
