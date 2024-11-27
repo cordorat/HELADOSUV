@@ -41,10 +41,10 @@ urlpatterns = [
     path('homeC/cajaCajero/', views.cajaCajero, name='cajaCajero'),
 
     #CRUD Helado
-    path('helados/', views.mostrarHelados, name='helados'),
-    path('agregar_helado/', views.agregarHelado, name='agregarHelado'),   
+    path('homeA/helados/', views.mostrarHelados, name='helados'),
+    path('homeA/agregarHelado/', views.agregarHelado, name='agregarHelado'),   
     path('buscar_helado/<int:helado_id>/', views.buscarHelado, name='buscarHelado'),
-    path('editar_helado/<int:helado_id>/', views.editar_helado, name='editarHelado'),
+    path('homeA/editarHelado/<int:helado_id>/', views.editar_helado, name='editarHelado'),
 
     path('homeA/gestionarEmpleado/crearEmpleado/', views.CrearEmpleado, name='crearEmpleado'),
     path('homeA/gestionarEmpleado/empleados/', views.Empleados, name='empleados'),
@@ -54,8 +54,8 @@ urlpatterns = [
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),
 
-    path('crear_pedido/', views.CrearPedido, name='crear_pedido'),
-    path('pedidos/', views.Pedidos, name='pedidos'),
+    path('homeC/crear_pedido/', views.CrearPedido, name='crear_pedido'),
+    path('homeC/pedidos/', views.Pedidos, name='pedidos'),
     path('editar_pedido/<int:pedido_id>/', views.EditarPedido, name='editar_pedido'),
     path('buscar_pedido/', views.BuscarPedido, name='buscar_pedido'),
     path('crear_pedido_emp/', views.CrearPedidoEmpleado, name='crear_pedido_emp'),
