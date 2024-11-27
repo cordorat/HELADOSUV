@@ -29,7 +29,7 @@ urlpatterns = [
 
     path('homeA/', views.homeAdmin, name='homeA'),
     path('homeC/', views.homeCajero, name='homeC'),
-    path('gestionarEmpleado/',views.empleadoAdmin, name='empleadoAdmin')
+    path('gestionarEmpleado/',views.empleadoAdmin, name='empleadoAdmin'),
 
     #CRUD Helado
     path('helados/', views.mostrarHelados, name='helados'),
