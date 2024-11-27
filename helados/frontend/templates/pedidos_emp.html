@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1> Pedidos al detal </h1>
+
+<ul>
+    {% for pedido in pedidos %}
+    <li>
+            <ul>
+                {% for pedido in pedidos %}
+                    <b><h0>Detalle del Pedido</h0></b>
+                    <li>Codigo: {{pedido.codigo}} </li>
+                    <li>Fecha: {{pedido.fecha}} </li>
+                    <li>Producto: {{pedido.producto}}  </li>
+                    <p></p>
+                    <b><h0>Empleado</h0></b>
+                    <li>Documento: {{pedido.empleado.documento}}</li>
+                    <li>Nombre: {{pedido.empleado.nombre}}</li>
+                    <li>Apellido: {{pedido.empleado.apellido}}</li>
+                    <a href="{% url 'editarpedidosemp' pedido.id %}" class="btn btn-primary">Editar</a>
+                    <p></p>
+                {% endfor %}
+            </ul>     
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

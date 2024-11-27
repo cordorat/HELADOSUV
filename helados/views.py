@@ -6,7 +6,7 @@ import django.db
 from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm
 from .models import Helado
 from .models import Empleado
-from .models import Pedido
+from .models import Pedido, PedidoEmpleado
 
 
 # Create your views here.
@@ -181,7 +181,7 @@ def EditarEmpleado(request, empleado_id):
         except ValueError:
             return render(request, 'editar_empleados.html', {'empleado': empleado, 'form': form, 'error' : "No se pudo editar el perfil de empleado."})
         
-def CrearPedido(request):
+def crearPedido(request):
     if request.method == 'GET':
         return render(request, 'crear_pedido.html', {
             'form': PedidoForm, 'form1':ClienteForm
@@ -205,7 +205,7 @@ def CrearPedido(request):
                 'error': 'No se ha podido crear el Pedido o el Cliente'
             })
         
-def CrearPedidoEmpleado(request):
+def crearPedidoEmpleado(request):
     if request.method == 'GET':
         return render(request, 'crear_pedido_emp.html', {
             'form': PedidoEmpleadoForm
@@ -218,12 +218,46 @@ def CrearPedidoEmpleado(request):
             nuevo_pedido.save()
             
             
-            return redirect('homeC')
+            return redirect('pedidosemp')
         except ValueError:
             return render(request, 'crear_pedido_emp.html', {
-                'form': PedidoEmpleadoForm, 'form1':EmpleadoForm,
-                'error': 'No se ha podido crear el Pedido o el Empleado'
+                'form': PedidoEmpleadoForm,
+                'error': 'No se ha podido crear el Pedido'
             })
+        
+def pedidosEmp(request):
+    pedidos = PedidoEmpleado.objects.filter()
+    return render(request, 'pedidos_emp.html', {'pedidos': pedidos})
+
+def buscarPedidoEmp(request):
+    form = BusquedaCodigoForm(request.POST)
+    pedidos = PedidoEmpleado.objects.all()  # Obtiene todos los empleados por defecto
+    buscar_realizado = False
+
+    if request.POST:  # Verifica si se enviaron datos por GET
+        buscar_realizado = True
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            if query:
+                query = int(query)
+                pedidos = pedidos.filter(codigo=query)
+    return render(request, 'buscar_pedido_emp.html', {'form': form, 'pedidos': pedidos, 'buscar_realizado' : buscar_realizado})
+
+
+def editarPedidoEmp(request, pedido_id):
+    if request.method == 'GET':
+        pedido = get_object_or_404(PedidoEmpleado, pk=pedido_id)
+        form = PedidoEmpleadoForm(instance=pedido)
+        return render(request, 'editar_pedido_emp.html', {'pedido': pedido, 'form': form})
+    else:
+        try:
+            pedido = get_object_or_404(PedidoEmpleado, pk=pedido_id)
+            form = PedidoEmpleadoForm(request.POST, instance=pedido)
+            form.save()
+            return redirect('pedidosemp')
+        except ValueError:
+            return render(request, 'editar_pedido_emp.html', {'pedido': pedido, 'form': form, 'error' : "No se pudo editar el pedido."})
+        
         
 def empleadoAdmin(request):
     return render(request, 'empleado_admin.html')
