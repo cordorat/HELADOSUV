@@ -3,10 +3,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 import django.db
-from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm
+from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm, ReporteForm
 from .models import Helado
 from .models import Empleado
 from .models import Pedido, PedidoEmpleado
+
 
 
 # Create your views here.
@@ -136,7 +137,7 @@ def terminos(request):
     return render(request, 'terminos.html')
 
 
-def CrearEmpleado(request):
+def crearEmpleado(request):
     if request.method == 'GET':
         return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm})
     else:
@@ -149,12 +150,12 @@ def CrearEmpleado(request):
             return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm, 'error': 'No se ha podido crear el perfil del Empleado'})
 
 
-def Empleados(request):
+def empleados(request):
     empleados = Empleado.objects.all()
     return render(request, 'empleados.html', {'empleados': empleados})
 
 
-def BuscarEmpleado(request):
+def buscarEmpleado(request):
     form = BusquedaForm(request.GET)
     print(form)
     # Si el formulario se ha enviado con un término de búsqueda
@@ -169,7 +170,7 @@ def BuscarEmpleado(request):
     return render(request, 'buscar_empleado.html', {'form': form, 'empleados': empleados})
 
 
-def EditarEmpleado(request, empleado_id):
+def editarEmpleado(request, empleado_id):
     if request.method == 'GET':
         empleado = get_object_or_404(Empleado, pk=empleado_id)
         form = CrearEmpleadoForm(instance=empleado)
@@ -278,12 +279,12 @@ def empleadoAdmin(request):
     return render(request, 'empleado_admin.html')
 
 
-def Pedidos(request):
+def pedidos(request):
     pedidos = Pedido.objects.all()
     return render(request, 'pedidos.html', {'pedidos': pedidos})
 
 
-def EditarPedido(request, pedido_id):
+def editarPedido(request, pedido_id):
     if request.method == 'GET':
         pedido = get_object_or_404(Pedido, pk=pedido_id)
         form = PedidoForm(instance=pedido)
@@ -298,7 +299,7 @@ def EditarPedido(request, pedido_id):
             return render(request, 'editar_pedido.html', {'pedido': pedido, 'form': form, 'error': "No se pudo editar el pedido."})
 
 
-def BuscarPedido(request):
+def buscarPedido(request):
     form = BusquedaCodigoForm(request.GET)
     print(form)
     # Si el formulario se ha enviado con un término de búsqueda
@@ -330,3 +331,37 @@ def pedidosCajero(request):
 
 def cajaCajero(request):
     return render(request, 'caja_cajero.html')
+
+def reporte(request):
+    # Inicializamos el formulario con los datos de la solicitud (GET o POST)
+    form = ReporteForm(request.GET or None)
+    
+    # Definimos las variables de resultados
+    total_empleados = None
+    horas_trabajadas = None
+    productividad_promedio = None
+    
+    if request.method == "GET" and form.is_valid():
+        # Obtener el valor de los filtros del formulario
+        filtro_horas = form.cleaned_data.get('filtro_horas')
+        empleado_id = form.cleaned_data.get('empleado_id')
+        
+        # 1. Calcular la cantidad total de empleados
+        total_empleados = Empleado.contar_empleados()
+        
+        # 2. Calcular las horas trabajadas totales con el filtro seleccionado
+        if filtro_horas:
+            horas_trabajadas = Pedido.horas_trabajadas_totales(filtro=filtro_horas)
+        
+        # 3. Calcular la productividad promedio
+        if empleado_id is not None:
+            productividad_promedio = Empleado.productividad_promedio(empleado_id)
+        else:
+            productividad_promedio = Empleado.productividad_promedio()
+    
+    return render(request, 'reporte.html', {
+        'form': form,
+        'total_empleados': total_empleados,
+        'horas_trabajadas': horas_trabajadas,
+        'productividad_promedio': productividad_promedio,
+    })
