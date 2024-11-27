@@ -3,29 +3,28 @@
 
 
 {% block user %}
-Admin
+Cajero
 {% endblock %}
 
 {% block content %}
 
     
-    <h2>REPORTES</h2>
+    <h2>CAJA</h2>
     
     <main>
         <div class="left-column">
-            <a href="#" class="button">
-                REPORTES DE VENTA
+            <a href="crearEmpleado" class="button">
+                <span>💰</span> 
+                CIERRE DE CAJA
             </a>
-            <a href="#" class="button">
-                REPORTES DE INVENTARIO
-            </a>
-            <a href="#" class="button">
-                REPORTES DE EMPLEADOS
+            <a href="editar_empleado" class="button">
+                <span>📈</span> 
+                CIERRE VENDEDORES
             </a>
         </div>
         <div class="right-column">
             <div class="icon">
-                <img src="{% static 'images/analitica.png' %}" alt="reportes">
+                <img src="{% static 'images/caja-registradora.png' %}" alt="caja">
             </div>
         </div>
     </main>

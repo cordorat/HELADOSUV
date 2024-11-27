@@ -269,3 +269,12 @@ def reportesAdmin (request):
 
 def inventarioAdmin (request):
     return render(request, 'inventario_admin.html')
+
+def vendedoresCajero (request):
+    return render(request, 'vendedores_cajero.html')
+
+def pedidosCajero (request):
+    return render(request, 'pedidos_cajero.html')
+
+def cajaCajero (request):
+    return render(request,'caja_cajero.html')

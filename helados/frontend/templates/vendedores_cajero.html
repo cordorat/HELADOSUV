@@ -3,29 +3,32 @@
 
 
 {% block user %}
-Admin
+Cajero
 {% endblock %}
 
 {% block content %}
 
     
-    <h2>REPORTES</h2>
+    <h2>VENTAS AL DETAL EN CAMPO</h2>
     
     <main>
         <div class="left-column">
             <a href="#" class="button">
-                REPORTES DE VENTA
+                <span>➕</span> 
+                INGRESAR PEDIDO
             </a>
             <a href="#" class="button">
-                REPORTES DE INVENTARIO
+                <span>✏️</span> 
+                EDITAR PEDIDO
             </a>
             <a href="#" class="button">
-                REPORTES DE EMPLEADOS
+                <span>❌</span> 
+                CANCELAR PEDIDO
             </a>
         </div>
         <div class="right-column">
             <div class="icon">
-                <img src="{% static 'images/analitica.png' %}" alt="reportes">
+                <img src="{% static 'images/entrega-rapida.png' %}" alt="Entrega">
             </div>
         </div>
     </main>

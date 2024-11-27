@@ -29,9 +29,16 @@ urlpatterns = [
 
     path('homeA/', views.homeAdmin, name='homeA'),
     path('homeC/', views.homeCajero, name='homeC'),
+
+    #A partir de admin
     path('homeA/gestionarEmpleado/',views.empleadoAdmin, name='gestionarEmpleado'),
     path('homeA/reportesAdmin/', views.reportesAdmin, name='reportesAdmin'),
     path('homeA/inventarioAdmin/', views.inventarioAdmin, name='inventarioAdmin'),
+
+    #A partir de cajero
+    path('homeC/vendedoresCajero/', views.vendedoresCajero, name='vendedoresCajero'),
+    path('homeC/pedidosCajero/', views.pedidosCajero, name='pedidosCajero'),
+    path('homeC/cajaCajero/', views.cajaCajero, name='cajaCajero'),
 
     #CRUD Helado
     path('helados/', views.mostrarHelados, name='helados'),
