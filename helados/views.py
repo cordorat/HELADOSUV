@@ -3,9 +3,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 import django.db
-from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm
+from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm
 from .models import Helado
 from .models import Empleado
+from .models import Pedido
 
 
 # Create your views here.
@@ -230,3 +231,35 @@ def CrearPedidoEmpleado(request):
         
 def empleadoAdmin(request):
     return render(request, 'empleado_admin.html')
+
+def Pedidos(request):
+    pedidos = Pedido.objects.all()
+    return render(request, 'pedidos.html', {'pedidos': pedidos})
+
+def EditarPedido(request, pedido_id):
+    if request.method == 'GET':
+        pedido = get_object_or_404(Pedido, pk=pedido_id)
+        form = PedidoForm(instance=pedido)
+        return render(request, 'editar_pedido.html', {'pedido': pedido, 'form': form})
+    else:
+        try:
+            pedido = get_object_or_404(Pedido, pk=pedido_id)
+            form = PedidoForm(request.POST, instance=pedido)
+            form.save()
+            return redirect('pedidos')
+        except ValueError:
+            return render(request, 'editar_pedido.html', {'pedido': pedido, 'form': form, 'error' : "No se pudo editar el pedido."})
+        
+
+def BuscarPedido(request):
+    form = BusquedaCodigoForm(request.GET)
+    print(form)
+    # Si el formulario se ha enviado con un término de búsqueda
+    pedidos = Pedido.objects.all()  # Obtiene todos los empleados por defecto
+
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            query = int(query)
+            pedidos = pedidos.filter(codigo=query)
+    return render(request, 'buscar_pedido.html', {'form': form, 'pedidos': pedidos})

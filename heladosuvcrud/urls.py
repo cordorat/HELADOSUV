@@ -46,5 +46,8 @@ urlpatterns = [
     path('terminos/', views.terminos, name = 'terminos'),
 
     path('crear_pedido/', views.CrearPedido, name='crear_pedido'),
+    path('pedidos/', views.Pedidos, name='pedidos'),
+    path('editar_pedido/<int:pedido_id>/', views.EditarPedido, name='editar_pedido'),
+    path('buscar_pedido/', views.BuscarPedido, name='buscar_pedido'),
     path('crear_pedido_emp/', views.CrearPedidoEmpleado, name='crear_pedido_emp'),
 ]

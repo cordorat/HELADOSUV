@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <h1>Buscar Pedidos</h1>
+
+    {% if form %}
+        <form method="get">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Renderiza el formulario con los campos como párrafos -->
+            <button type="submit">Buscar</button> <!-- Botón de envío -->
+        </form>
+    {% else %}
+        <p>Formulario no disponible.</p>
+    {% endif %}
+
+    <h2>Resultados de búsqueda</h2>
+
+    {% if pedidos %}
+        <ul>
+            {% for pedido in pedidos %}
+                <li>{{ pedido.fecha }} - {{ pedido.cliente }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron empleados.</p>
+    {% endif %}
+{% endblock %}

@@ -41,6 +41,9 @@ class PedidoEmpleadoForm(ModelForm):
 class BusquedaForm(forms.Form):
     query = forms.CharField(label='Buscar', max_length=100, required=False)
 
+class BusquedaCodigoForm(forms.Form):
+    query = forms.IntegerField(label='Buscar', required=False)
+
 class ClienteForm(ModelForm):
     class Meta:
         model = Cliente

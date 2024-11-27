@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1> Pedidos </h1>
+
+<ul>
+    {% for pedido in pedidos %}
+    <li>
+        <a href="{% url 'editar_pedido' pedido.id %}">
+            <h1>{{pedido.codigo}}</h1>
+            <p> {{pedido.fecha}} </p>
+            <p> {{empleado.cleinte}} </p>
+            
+            <p></p>
+            </a>
+        
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

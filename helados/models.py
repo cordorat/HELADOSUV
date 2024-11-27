@@ -24,6 +24,9 @@ class Cliente (models.Model):
     apellido = models.CharField(max_length=50)
     direccion = models.CharField(max_length=50)
 
+    def __str__(self):
+        return "Nombre: " + self.nombre + " - " + "Apellido: " +self.apellido
+
 
 class Pedido (models.Model):
     codigo = models.IntegerField(blank=False)
