@@ -1,20 +1,30 @@
 {% extends 'layouts/base.html' %}
 
+{% block user %}
+Admin
+{% endblock %}
+
 {% block content %}
 
-<h1>Agregar helados</h1>
+    <h2 class="dashboard-heading">Agregar helados</h2>
 
-{{error}}
+    {{error}}
 
-<form action="" method="post">
-    {% csrf_token %}
+    <form action="/homeA/inventarioAdmin/helados/" method="post">
+        {% csrf_token %}
 
-    {{form.as_p}}
+        {{form.as_p}}
 
-    <button>
-        Guardar
-    </button>
+        <button>
+            Guardar
+        </button>
 
-</form>
+    </form>
+
+    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
 
 {% endblock %}

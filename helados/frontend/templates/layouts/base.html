@@ -20,7 +20,7 @@
     <nav class="navbar navbar-dark fixed-top custom-navbar">
       <div class="container-fluid d-flex align-items-center">
           <a class="navbar-brand d-flex align-items-center" href="#">
-              <img src="../../static/images/avatar.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top rounded-circle">
+              <img src="{% static 'images/avatar.png' %}" alt="Logo" width="50" height="50" class="d-inline-block align-text-top rounded-circle">
               {% block user %} usuario por defecto {% endblock %}
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
                           <a class="nav-link" href="#">Ayuda</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="#">Cerrar Sesión</a>
+                          <a class="nav-link" href="/logout">Cerrar Sesión</a>
                       </li>
                   </ul>
               </div>
