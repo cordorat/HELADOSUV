@@ -125,7 +125,7 @@ def editar_helado(request, helado_id):
             form.save()
             return redirect('helados')
         except ValueError:
-            return render(request, 'editar_helado.html', {'helado': helado, 'form': form, 'error' : "Error, no se pudo actualizar."})
+            return render(request, 'editar_helado.html', {'helado': helado, 'form': form, 'error': "Error, no se pudo actualizar."})
 
 
 def politicas(request):
@@ -141,18 +141,18 @@ def CrearEmpleado(request):
         return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm})
     else:
         try:
-            form=CrearEmpleadoForm(request.POST)
-            nuevo_empleado =form.save(commit=False)
+            form = CrearEmpleadoForm(request.POST)
+            nuevo_empleado = form.save(commit=False)
             nuevo_empleado.save()
             return redirect('empleados')
         except ValueError:
             return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm, 'error': 'No se ha podido crear el perfil del Empleado'})
 
 
-
 def Empleados(request):
     empleados = Empleado.objects.all()
     return render(request, 'empleados.html', {'empleados': empleados})
+
 
 def BuscarEmpleado(request):
     form = BusquedaForm(request.GET)
@@ -163,9 +163,11 @@ def BuscarEmpleado(request):
     if form.is_valid():
         query = form.cleaned_data['query']
         if query:
-            empleados = empleados.filter(nombre__icontains=query)  # Filtra los empleados por nombre (insensible a mayúsculas/minúsculas)
+            # Filtra los empleados por nombre (insensible a mayúsculas/minúsculas)
+            empleados = empleados.filter(nombre__icontains=query)
 
     return render(request, 'buscar_empleado.html', {'form': form, 'empleados': empleados})
+
 
 def EditarEmpleado(request, empleado_id):
     if request.method == 'GET':
@@ -179,32 +181,33 @@ def EditarEmpleado(request, empleado_id):
             form.save()
             return redirect('empleados')
         except ValueError:
-            return render(request, 'editar_empleados.html', {'empleado': empleado, 'form': form, 'error' : "No se pudo editar el perfil de empleado."})
-        
+            return render(request, 'editar_empleados.html', {'empleado': empleado, 'form': form, 'error': "No se pudo editar el perfil de empleado."})
+
+
 def crearPedido(request):
     if request.method == 'GET':
         return render(request, 'crear_pedido.html', {
-            'form': PedidoForm, 'form1':ClienteForm
+            'form': PedidoForm, 'form1': ClienteForm
         })
     else:
         try:
             form = PedidoForm(request.POST)
             form1 = ClienteForm(request.POST)
             nuevo_cliente = form1.save()
-            
+
             nuevo_pedido = form.save(commit=False)
             nuevo_pedido.cliente = nuevo_cliente
-            
+
             nuevo_pedido.save()
-            
-            
+
             return redirect('homeC')
         except ValueError:
             return render(request, 'crear_pedido.html', {
-                'form': PedidoForm, 'form1':ClienteForm,
+                'form': PedidoForm, 'form1': ClienteForm,
                 'error': 'No se ha podido crear el Pedido o el Cliente'
             })
-        
+
+
 def crearPedidoEmpleado(request):
     if request.method == 'GET':
         return render(request, 'crear_pedido_emp.html', {
@@ -212,36 +215,48 @@ def crearPedidoEmpleado(request):
         })
     else:
         try:
-            form = PedidoEmpleadoForm(request.POST)            
+            form = PedidoEmpleadoForm(request.POST)
             nuevo_pedido = form.save(commit=False)
-            
+
             nuevo_pedido.save()
-            
-            
+
             return redirect('pedidosemp')
         except ValueError:
             return render(request, 'crear_pedido_emp.html', {
                 'form': PedidoEmpleadoForm,
                 'error': 'No se ha podido crear el Pedido'
             })
-        
+
+
 def pedidosEmp(request):
     pedidos = PedidoEmpleado.objects.filter()
     return render(request, 'pedidos_emp.html', {'pedidos': pedidos})
 
+
 def buscarPedidoEmp(request):
     form = BusquedaCodigoForm(request.POST)
-    pedidos = PedidoEmpleado.objects.all()  # Obtiene todos los empleados por defecto
+    # Obtiene todos los empleados por defecto
+    pedidos = PedidoEmpleado.objects.all()
     buscar_realizado = False
+    error_busqueda = None
 
-    if request.POST:  # Verifica si se enviaron datos por GET
+    if request.POST:
         buscar_realizado = True
+    try:
         if form.is_valid():
             query = form.cleaned_data['query']
-            if query:
-                query = int(query)
-                pedidos = pedidos.filter(codigo=query)
-    return render(request, 'buscar_pedido_emp.html', {'form': form, 'pedidos': pedidos, 'buscar_realizado' : buscar_realizado})
+            if not query:
+                raise ValueError("El campo no puede estar vacio")
+            
+            query = int(query)
+            pedidos = pedidos.filter(codigo=query)
+        
+    
+    except ValueError as e:
+            error_busqueda = str(e)
+            
+    return render(request, 'buscar_pedido_emp.html', {'form': form, 'pedidos': pedidos, 'buscar_realizado': buscar_realizado, 'error_busqueda' : error_busqueda})
+            
 
 
 def editarPedidoEmp(request, pedido_id):
@@ -256,15 +271,17 @@ def editarPedidoEmp(request, pedido_id):
             form.save()
             return redirect('pedidosemp')
         except ValueError:
-            return render(request, 'editar_pedido_emp.html', {'pedido': pedido, 'form': form, 'error' : "No se pudo editar el pedido."})
-        
-        
+            return render(request, 'editar_pedido_emp.html', {'pedido': pedido, 'form': form, 'error': "No se pudo editar el pedido."})
+
+
 def empleadoAdmin(request):
     return render(request, 'empleado_admin.html')
+
 
 def Pedidos(request):
     pedidos = Pedido.objects.all()
     return render(request, 'pedidos.html', {'pedidos': pedidos})
+
 
 def EditarPedido(request, pedido_id):
     if request.method == 'GET':
@@ -278,8 +295,8 @@ def EditarPedido(request, pedido_id):
             form.save()
             return redirect('pedidos')
         except ValueError:
-            return render(request, 'editar_pedido.html', {'pedido': pedido, 'form': form, 'error' : "No se pudo editar el pedido."})
-        
+            return render(request, 'editar_pedido.html', {'pedido': pedido, 'form': form, 'error': "No se pudo editar el pedido."})
+
 
 def BuscarPedido(request):
     form = BusquedaCodigoForm(request.GET)
@@ -294,17 +311,22 @@ def BuscarPedido(request):
             pedidos = pedidos.filter(codigo=query)
     return render(request, 'buscar_pedido.html', {'form': form, 'pedidos': pedidos})
 
-def reportesAdmin (request):
-    return render(request,'reportes_admin.html')
 
-def inventarioAdmin (request):
+def reportesAdmin(request):
+    return render(request, 'reportes_admin.html')
+
+
+def inventarioAdmin(request):
     return render(request, 'inventario_admin.html')
 
-def vendedoresCajero (request):
+
+def vendedoresCajero(request):
     return render(request, 'vendedores_cajero.html')
 
-def pedidosCajero (request):
+
+def pedidosCajero(request):
     return render(request, 'pedidos_cajero.html')
 
-def cajaCajero (request):
-    return render(request,'caja_cajero.html')
+
+def cajaCajero(request):
+    return render(request, 'caja_cajero.html')

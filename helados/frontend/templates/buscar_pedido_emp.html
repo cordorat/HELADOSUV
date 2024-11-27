@@ -3,18 +3,17 @@
 {% block content %}
     <h1>Buscar Pedidos</h1>
 
-    {% if form %}
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}  <!-- Renderiza el formulario con los campos como párrafos -->
             <button type="submit">Buscar</button> <!-- Botón de envío -->
         </form>
-    {% else %}
-        <p>Formulario no disponible.</p>
-    {% endif %}
 
     {% if buscar_realizado %}   
-        {% if pedidos %}
+        {% if error_busqueda %}
+        <p></p>
+            <h2><p><strong>{{ error_busqueda }}</strong></p></h2>
+        {% elif pedidos %}
         <h1>Resultados</h1>
             <ul>
                 {% for pedido in pedidos %}
@@ -30,7 +29,9 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No se encontraron pedidos.</p>
+            <h1>Resultados</h1>
+            <p><h2>No se encontraron pedidos.</h2></p>
+            
         {% endif %}
     {% endif %}
 {% endblock %}
