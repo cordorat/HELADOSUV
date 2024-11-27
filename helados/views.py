@@ -354,3 +354,6 @@ def pedidosCajero(request):
 
 def cajaCajero(request):
     return render(request, 'caja_cajero.html')
+
+def ayuda(request):
+    return render(request,'ayuda.html')
