@@ -2,11 +2,11 @@
 
 
 {% block content %}
-    <h1>Crear Pedido</h1>
+    <h1>Crear Pedido al Menor</h1>
 
     {{error}}
 
-    <form action="/crear_pedido/" method="POST">
+    <form action="/crear_pedido_emp/" method="POST">
         {% csrf_token %}
         {{form}}
         {{form1}}

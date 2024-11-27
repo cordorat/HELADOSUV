@@ -18,6 +18,9 @@ class Empleado (models.Model):
     telefono = models.IntegerField(blank= False, default=0)
     activo = models.BooleanField(default=True)
 
+    def __str__(self):
+        return "Nombre: " + self.nombre + " - " + "Apellido: " + self.apellido
+
 class Cliente (models.Model):
     nit = models.IntegerField(blank=False)
     nombre= models.CharField(max_length=50)

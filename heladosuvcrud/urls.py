@@ -54,9 +54,18 @@ urlpatterns = [
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),
 
+<<<<<<< HEAD
     path('homeC/crear_pedido/', views.CrearPedido, name='crear_pedido'),
     path('homeC/pedidos/', views.Pedidos, name='pedidos'),
+=======
+    path('crear_pedido/', views.crearPedido, name='crear_pedido'),
+    path('pedidos/', views.Pedidos, name='pedidos'),
+>>>>>>> 105fb2d7560090740801eeaae2e9acde8e5cfa26
     path('editar_pedido/<int:pedido_id>/', views.EditarPedido, name='editar_pedido'),
     path('buscar_pedido/', views.BuscarPedido, name='buscar_pedido'),
-    path('crear_pedido_emp/', views.CrearPedidoEmpleado, name='crear_pedido_emp'),
+
+    path('pedidos_menor/', views.pedidosEmp, name='pedidosemp'),
+    path('crear_pedido_emp/', views.crearPedidoEmpleado, name='crear_pedido_emp'),
+    path('buscar_pedidos_menor/', views.buscarPedidoEmp, name='buscarpedidosemp'),
+    path('editar_pedidos_menor/<int:pedido_id>', views.editarPedidoEmp, name='editarpedidosemp'),
 ]
