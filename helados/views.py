@@ -263,3 +263,9 @@ def BuscarPedido(request):
             query = int(query)
             pedidos = pedidos.filter(codigo=query)
     return render(request, 'buscar_pedido.html', {'form': form, 'pedidos': pedidos})
+
+def reportesAdmin (request):
+    return render(request,'reportes_admin.html')
+
+def inventarioAdmin (request):
+    return render(request, 'inventario_admin.html')

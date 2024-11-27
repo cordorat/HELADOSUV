@@ -1,4 +1,6 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
+
 
 {% block user %}
 Admin
@@ -6,19 +8,27 @@ Admin
 
 {% block content %}
 
-    <header>
-        <div class="header-background"></div>
-        <h1>Gestionar Empleados</h1>
-    </header>
+    
+    <h2>Gestionar Empleados</h2>
+    
     <main>
         <div class="left-column">
-            <a href="#" class="button">➕ AGREGAR EMPLEADO</a>
-            <a href="#" class="button">✏️ EDITAR EMPLEADO</a>
-            <a href="#" class="button">🔄 HABILITAR/DESHABILITAR EMPLEADO</a>
+            <a href="crearEmpleado" class="button">
+                <span>➕</span> 
+                AGREGAR EMPLEADO
+            </a>
+            <a href="editar_empleado" class="button">
+                <span>✏️</span> 
+                EDITAR EMPLEADO
+            </a>
+            <a href="#" class="button">
+                <span>🔄</span> 
+                HABILITAR/DESHABILITAR EMPLEADO
+            </a>
         </div>
         <div class="right-column">
             <div class="icon">
-                👤
+                <img src="{% static 'images/empleado-del-mes.png' %}" alt="Icono de empleado">
             </div>
         </div>
     </main>

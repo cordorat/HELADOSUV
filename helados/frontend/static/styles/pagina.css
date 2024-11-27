@@ -1,128 +1,96 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: white;
+body, html { 
+    margin: 0; 
+    padding: 0; 
+    font-family: Arial, sans-serif; 
+    line-height: 1.6; 
+    background-color: white; 
 }
 
-header {
-    background-color: #2952CC;
-    padding: 40px 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.629);
+header { 
+    background-color: #2952CC; 
+    padding: 40px 0; 
+    position: relative; 
+    overflow: hidden; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.629); 
 }
 
-.header-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("../images/helado.svg");
-    background-size: 70px 70px;
-    background-repeat: space;
-    filter: blur(2.5px);
-    z-index: 1;
+.header-background { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background-image: url("../images/helado.svg"); 
+    background-size: 70px 70px; 
+    background-repeat: space; 
+    filter: blur(2.5px); 
+    z-index: 1; 
 }
 
-h1 {
-    color: white;
-    text-align: center;
-    font-size: 2.5em;
-    margin: 0;
-    position: relative;
-    z-index: 2;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+h1 { 
+    color: white; 
+    text-align: center; 
+    font-size: 2.5em; 
+    margin: 0; 
+    position: relative; 
+    z-index: 2; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
 }
 
-main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
+main { 
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px; 
 }
 
-.left-column, .right-column {
-    flex: 1;
+section { 
+    margin-bottom: 30px; 
 }
 
-.left-column {
-    margin-right: 20px;
+h2 { 
+    color: #2952CC; 
+    font-size: 1.5em; 
+    margin-top: 30px; 
+    margin-bottom: 15px; 
 }
 
-h2 {
-    color: #2952CC;
-    font-size: 1.5em;
-    margin-top: 30px;
-    margin-bottom: 15px;
+ul { 
+    padding-left: 20px; 
 }
 
-.button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    text-align: left;
-    background-color: #fff;
-    border: 1px solid #2952CC;
-    color: #2952CC;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+li { 
+    margin-bottom: 15px; 
 }
 
-.button:hover {
-    background-color: #f0f0f0;
+strong { 
+    font-weight: bold; 
 }
 
-.icon {
-    width: 200px;
-    height: 200px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 100px;
+.back-button { 
+    position: fixed; 
+    bottom: 20px; 
+    left: 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    width: 48px; 
+    height: 48px; 
+    background-color: #2952CC; 
+    border-radius: 50%; 
+    transition: background-color 0.3s ease; 
 }
 
-.back-button {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background-color: #2952CC;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
+.back-button:hover { 
+    background-color: #1e3a8a; 
 }
 
-.back-button:hover {
-    background-color: #1e3a8a;
+.back-button svg { 
+    width: 24px; 
+    height: 24px; 
+    color: white; 
 }
 
-.back-button svg {
-    width: 24px;
-    height: 24px;
-    color: white;
-}
-
-@media (max-width: 600px) {
-    main {
-        flex-direction: column;
-        padding: 10px;
-    }
-
-    .left-column {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
+@media (max-width: 600px) { main { padding: 10px; }
 
     h1 {
         font-size: 2em;

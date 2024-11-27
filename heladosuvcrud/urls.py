@@ -29,7 +29,9 @@ urlpatterns = [
 
     path('homeA/', views.homeAdmin, name='homeA'),
     path('homeC/', views.homeCajero, name='homeC'),
-    path('gestionarEmpleado/',views.empleadoAdmin, name='empleadoAdmin'),
+    path('homeA/gestionarEmpleado/',views.empleadoAdmin, name='gestionarEmpleado'),
+    path('homeA/reportesAdmin/', views.reportesAdmin, name='reportesAdmin'),
+    path('homeA/inventarioAdmin/', views.inventarioAdmin, name='inventarioAdmin'),
 
     #CRUD Helado
     path('helados/', views.mostrarHelados, name='helados'),
@@ -37,10 +39,10 @@ urlpatterns = [
     path('buscar_helado/<int:helado_id>/', views.buscarHelado, name='buscarHelado'),
     path('editar_helado/<int:helado_id>/', views.editar_helado, name='editarHelado'),
 
-    path('crear_empleado/', views.CrearEmpleado, name='crearEmpleado'),
+    path('homeA/gestionarEmpleado/crearEmpleado/', views.CrearEmpleado, name='crearEmpleado'),
     path('empleados/', views.Empleados, name='empleados'),
     path('buscar_empleado/', views.BuscarEmpleado, name='buscar_empleado'),
-    path('editar_empleado/<int:empleado_id>/', views.EditarEmpleado, name='editar_empleado'),
+    path('homeA/gestionarEmpleado/editar_empleado/<int:empleado_id>/', views.EditarEmpleado, name='editar_empleado'),
 
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),
