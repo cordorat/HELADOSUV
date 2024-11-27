@@ -7,7 +7,7 @@
 <ul>
     {% for empleado in empleados %}
     <li>
-        <a href="{% url 'buscar_empleado' %}">
+        <a href="{% url 'editar_empleado' empleado.id %}">
             <h1>{{empleado.documento}}</h1>
             <p> {{empleado.nombre}} </p>
             <p> {{empleado.apellido}} </p>
