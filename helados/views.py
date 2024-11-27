@@ -227,3 +227,6 @@ def CrearPedidoEmpleado(request):
                 'form': PedidoEmpleadoForm, 'form1':EmpleadoForm,
                 'error': 'No se ha podido crear el Pedido o el Empleado'
             })
+        
+def empleadoAdmin(request):
+    return render(request, 'empleado_admin.html')
