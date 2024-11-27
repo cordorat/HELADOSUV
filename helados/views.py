@@ -208,16 +208,12 @@ def CrearPedido(request):
 def CrearPedidoEmpleado(request):
     if request.method == 'GET':
         return render(request, 'crear_pedido_emp.html', {
-            'form': PedidoEmpleadoForm, 'form1': EmpleadoForm
+            'form': PedidoEmpleadoForm
         })
     else:
         try:
-            form = PedidoEmpleadoForm(request.POST)
-            form1 = EmpleadoForm(request.POST)
-            nuevo_empleado = form1.save()
-            
+            form = PedidoEmpleadoForm(request.POST)            
             nuevo_pedido = form.save(commit=False)
-            nuevo_pedido.empleado = nuevo_empleado
             
             nuevo_pedido.save()
             
