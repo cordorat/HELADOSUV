@@ -29,6 +29,7 @@ urlpatterns = [
 
     path('homeA/', views.homeAdmin, name='homeA'),
     path('homeC/', views.homeCajero, name='homeC'),
+    path('gestionarEmpleado/',views.empleadoAdmin, name='empleadoAdmin'),
 
     #CRUD Helado
     path('helados/', views.mostrarHelados, name='helados'),
@@ -45,4 +46,5 @@ urlpatterns = [
     path('terminos/', views.terminos, name = 'terminos'),
 
     path('crear_pedido/', views.CrearPedido, name='crear_pedido'),
+    path('crear_pedido_emp/', views.CrearPedidoEmpleado, name='crear_pedido_emp'),
 ]

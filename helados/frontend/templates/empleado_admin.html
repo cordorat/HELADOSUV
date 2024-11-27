@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+
+{% block user %}
+Admin
+{% endblock %}
+
+{% block content %}
+
+    <header>
+        <div class="header-background"></div>
+        <h1>Gestionar Empleados</h1>
+    </header>
+    <main>
+        <div class="left-column">
+            <a href="#" class="button">➕ AGREGAR EMPLEADO</a>
+            <a href="#" class="button">✏️ EDITAR EMPLEADO</a>
+            <a href="#" class="button">🔄 HABILITAR/DESHABILITAR EMPLEADO</a>
+        </div>
+        <div class="right-column">
+            <div class="icon">
+                👤
+            </div>
+        </div>
+    </main>
+
+    <a href="/" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+    
+{% endblock %}
