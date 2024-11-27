@@ -229,8 +229,32 @@ def crearPedidoEmpleado(request):
 
 
 def pedidosEmp(request):
-    pedidos = PedidoEmpleado.objects.filter()
-    return render(request, 'pedidos_emp.html', {'pedidos': pedidos})
+    form = BusquedaCodigoForm(request.POST)
+    # Obtiene todos los empleados por defecto
+    pedidos = PedidoEmpleado.objects.all()
+    buscar_realizado = False
+    error_busqueda = None
+
+    if request.method == 'POST':
+        buscar_realizado = True
+        if form.is_valid():
+                query = form.cleaned_data['query']
+                if query:
+                    try:
+                        query = int(query)
+                        pedidos = pedidos.filter(codigo=query)
+                        if not pedidos:
+                            error_busqueda = "No existe el pedido"
+                    except ValueError:
+                        error_busqueda = "El codigo debe ser valido"
+                else:
+                    error_busqueda = "El campo no puede estar vacio"
+                    
+    
+    return render(request, 'pedidos_emp.html', {'form': form, 
+                                                'pedidos': pedidos, 
+                                                'buscar_realizado': buscar_realizado, 
+                                                'error_busqueda' : error_busqueda})
 
 
 def buscarPedidoEmp(request):

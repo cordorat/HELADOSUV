@@ -4,25 +4,68 @@
 
 <h1> Pedidos al Detal </h1>
 
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }} <!-- Renderiza el formulario con los campos como párrafos -->
+    <button type="submit">Buscar</button> <!-- Botón de envío -->
+</form>
+<p></p>
+
+{% if error_busqueda %}
+    <h2>
+        <p><strong>{{ error_busqueda }}</strong></p>
+    </h2>
+{% endif %}
+
+
+
+{% if buscar_realizado %}
+    {% if not error_busqueda %}
+    <h2>Resultados de la busqueda</h2>
+    {% if pedidos %}
+        <ul>
+            {% for pedido in pedidos %}
+            <b>
+                <h0>Detalle del Pedido</h0>
+            </b>
+            <li>Codigo: {{pedido.codigo}} </li>
+            <li>Fecha: {{pedido.fecha}} </li>
+            <li>Producto: {{pedido.producto}} </li>
+            <p></p>
+            <b>
+                <h0>Empleado</h0>
+            </b>
+            <li>Documento: {{pedido.empleado.documento}}</li>
+            <li>Nombre: {{pedido.empleado.nombre}}</li>
+            <li>Apellido: {{pedido.empleado.apellido}}</li>
+            <a href="{% url 'editarpedidosemp' pedido.id %}" class="btn btn-primary">Editar</a>
+            <p></p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron pedidos con ese código.</p>
+    {% endif %}
+    {% endif %}
+{% else %}
+<h2>Todos los pedidos</h2>
 <ul>
     {% for pedido in pedidos %}
-    <li>
-            <ul>
-                {% for pedido in pedidos %}
-                    <b><h0>Detalle del Pedido</h0></b>
-                    <li>Codigo: {{pedido.codigo}} </li>
-                    <li>Fecha: {{pedido.fecha}} </li>
-                    <li>Producto: {{pedido.producto}}  </li>
-                    <p></p>
-                    <b><h0>Empleado</h0></b>
-                    <li>Documento: {{pedido.empleado.documento}}</li>
-                    <li>Nombre: {{pedido.empleado.nombre}}</li>
-                    <li>Apellido: {{pedido.empleado.apellido}}</li>
-                    <a href="{% url 'editarpedidosemp' pedido.id %}" class="btn btn-primary">Editar</a>
-                    <p></p>
-                {% endfor %}
-            </ul>     
-    </li>
+    <b>
+        <h0>Detalle del Pedido</h0>
+    </b>
+    <li>Codigo: {{pedido.codigo}} </li>
+    <li>Fecha: {{pedido.fecha}} </li>
+    <li>Producto: {{pedido.producto}} </li>
+    <p></p>
+    <b>
+        <h0>Empleado</h0>
+    </b>
+    <li>Documento: {{pedido.empleado.documento}}</li>
+    <li>Nombre: {{pedido.empleado.nombre}}</li>
+    <li>Apellido: {{pedido.empleado.apellido}}</li>
+    <a href="{% url 'editarpedidosemp' pedido.id %}" class="btn btn-primary">Editar</a>
+    <p></p>
     {% endfor %}
 </ul>
+{% endif %}
 {% endblock %}
