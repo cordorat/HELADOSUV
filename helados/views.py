@@ -3,13 +3,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 import django.db
-from .forms import agregarHeladoForm
+from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm
 from .models import Helado
-from .forms import CrearEmpleadoForm
 from .models import Empleado
-from .forms import PedidoForm
-from .forms import BusquedaForm
-from .forms import ClienteForm
+
 
 # Create your views here.
 
@@ -200,9 +197,33 @@ def CrearPedido(request):
             nuevo_pedido.save()
             
             
-            return redirect('homeA')
+            return redirect('homeC')
         except ValueError:
             return render(request, 'crear_pedido.html', {
                 'form': PedidoForm, 'form1':ClienteForm,
-                'error': 'No se ha podido crear el Pedido o el CLiente'
+                'error': 'No se ha podido crear el Pedido o el Cliente'
+            })
+        
+def CrearPedidoEmpleado(request):
+    if request.method == 'GET':
+        return render(request, 'crear_pedido_emp.html', {
+            'form': PedidoEmpleadoForm, 'form1': EmpleadoForm
+        })
+    else:
+        try:
+            form = PedidoEmpleadoForm(request.POST)
+            form1 = EmpleadoForm(request.POST)
+            nuevo_empleado = form1.save()
+            
+            nuevo_pedido = form.save(commit=False)
+            nuevo_pedido.empleado = nuevo_empleado
+            
+            nuevo_pedido.save()
+            
+            
+            return redirect('homeC')
+        except ValueError:
+            return render(request, 'crear_pedido_emp.html', {
+                'form': PedidoEmpleadoForm, 'form1':EmpleadoForm,
+                'error': 'No se ha podido crear el Pedido o el Empleado'
             })

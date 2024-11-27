@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %}
+    <h1>Crear Pedido</h1>
+
+    {{error}}
+
+    <form action="/crear_pedido/" method="POST">
+        {% csrf_token %}
+        {{form}}
+        {{form1}}
+
+        <button>
+            Confirmar Pedido
+        </button>
+    </form>
+{% endblock %}

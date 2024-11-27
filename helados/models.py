@@ -30,3 +30,9 @@ class Pedido (models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     producto = models.ManyToManyField(Helado, related_name='pedidos')
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
+
+class PedidoEmpleado (models.Model):
+    codigo = models.IntegerField(blank=False)
+    fecha = models.DateTimeField(auto_now_add=True)
+    producto = models.ManyToManyField(Helado, related_name='pedidosemp')
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='pedidosemp')   
