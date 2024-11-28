@@ -29,6 +29,7 @@ urlpatterns = [
 
     path('homeA/', views.homeAdmin, name='homeA'),
     path('homeC/', views.homeCajero, name='homeC'),
+    path('olvidar/', views.olvidar, name='olvidar'),
 
     #A partir de admin
     path('homeA/gestionarEmpleado/',views.empleadoAdmin, name='gestionarEmpleado'),

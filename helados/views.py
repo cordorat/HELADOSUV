@@ -374,6 +374,9 @@ def ayuda(request):
 def editarPerfil(request):
     return render(request,'editar_perfil.html')
 
+def olvidar(request):
+    return render(request, 'olvidar.html')
+
 def reporte(request):
     total = Pedido.objects.aggregate(Sum('horaTrabajada'))['horaTrabajada__sum']
     
