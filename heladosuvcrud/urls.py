@@ -54,6 +54,7 @@ urlpatterns = [
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),
     path('ayuda/',views.ayuda, name='ayuda'),
+    path('editar_perfil/', views.editarPerfil, name='editar_perfil'),
 
     path('homeC/vendedoresCajero/crear_pedido/', views.crearPedido, name='crear_pedido'),
     path('homeC/vendedoresCajero/pedidos/', views.pedidos, name='pedidos'),

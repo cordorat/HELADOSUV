@@ -371,6 +371,9 @@ def cajaCajero(request):
 def ayuda(request):
     return render(request,'ayuda.html')
 
+def editarPerfil(request):
+    return render(request,'editar_perfil.html')
+
 def reporte(request):
     total = Pedido.objects.aggregate(Sum('horaTrabajada'))['horaTrabajada__sum']
     
