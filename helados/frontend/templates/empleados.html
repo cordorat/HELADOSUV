@@ -6,25 +6,42 @@ Admin
 
 {% block content %}
 
-    <h2 class="dashboard-heading"> Empleados </h2>
+<h2 class="dashboard-heading"> Empleados </h2>
 
-    <ul>
+<main class="container my-4">  <!-- Contenedor principal con margen superior e inferior -->
+
+
+    <!-- Div scroll para mostrar las tarjetas de empleados -->
+    <div class="scrollspy-example border rounded p-3 d-flex flex-column align-items-center"
+         data-bs-spy="scroll" 
+         data-bs-offset="0" 
+         tabindex="0" 
+         style="height: 500px; width: 1600px; ; overflow-y: auto; align-items: center;">
+
+        <!-- Lista de empleados -->
         {% for empleado in empleados %}
-        <li>
-            <a href="{% url 'editar_empleado' empleado.id %}">
-                <h3>{{empleado.documento}}</h3>
-                <p> {{empleado.nombre}} </p>
-                <p> {{empleado.apellido}} </p>
-                <b>Activo: </b> {{ empleado.activo }}
-                <p></p>
-                </a>
-            
-        </li>
+        <a href="{% url 'editar_empleado' empleado.id %}" class="text-decoration-none w-100" style="max-width: 600px;">
+            <div class="card mb-3 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    Documento: {{ empleado.documento }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ empleado.nombre }} {{ empleado.apellido }}</h5>
+                    <p><b>Activo: </b> {{ empleado.activo }}</p>
+                </div>
+            </div>
+        </a>
         {% endfor %}
-    </ul>
+        
+    </div>
+
+    <!-- Botón para volver atrás -->
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
     </a>
+
+</main>
+
 {% endblock %}

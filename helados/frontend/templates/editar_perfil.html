@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block user %}
+Usuario
+{% endblock %}
+
+{% block content %}
+
+    <h2 class="dashboard-heading">
+        EDITAR PERFIL
+    </h2>
+    
+    <main>
+        
+
+        <div class="left-column">
+            <img src="{% static 'images/avatar.png' %}" alt="avatar" width="300" height="300">
+        </div>
+
+        <div class="right-column">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Contraseña nueva</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Confirmar contraseña</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Contraseña actual</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <button type="button" class="btn btn-outline-primary">
+                Guardar cambios
+            </button>
+
+        </div>
+    </main>
+
+    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+{% endblock %}

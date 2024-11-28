@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
 {% block user %}
 Admin
@@ -9,17 +10,25 @@ Admin
     <h2 class="dashboard-heading">Agregar helados</h2>
 
     {{error}}
+    <main>
+        <div class="left-column">
+            <form action="/homeA/inventarioAdmin/helados/" method="post">
+                {% csrf_token %}
+        
+                {{form.as_p}}
+        
+                <button>
+                    Guardar
+                </button>
+        
+            </form>
+        </div>
 
-    <form action="/homeA/inventarioAdmin/helados/" method="post">
-        {% csrf_token %}
-
-        {{form.as_p}}
-
-        <button>
-            Guardar
-        </button>
-
-    </form>
+        <div class="right-column">
+            <img src="{% static 'images/helado (2).png' %}" alt="helado" width="300" height="300">
+        </div>
+    </main>
+    
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -15,7 +15,7 @@ header {
 }
 
 .header-background { 
-    position: absolute; 
+    /*position: absolute; 
     top: 0; 
     left: 0; 
     right: 0; 
@@ -24,7 +24,17 @@ header {
     background-size: 70px 70px; 
     background-repeat: space; 
     filter: blur(2.5px); 
-    z-index: 1; 
+    z-index: 1; */
+
+    background-image: url("../images/helado.svg");
+    background-size: 70px 70px; 
+    background-repeat: repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.1;
 }
 
 h1 { 

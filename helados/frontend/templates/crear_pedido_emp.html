@@ -1,18 +1,30 @@
 {% extends 'layouts/base.html' %}
-
+{% block user %}
+Cajero
+{% endblock %}
 
 {% block content %}
-    <h1>Crear Pedido al Menor</h1>
-
+    <h2 class="dashboard-heading">Crear Pedido al Detal</h2>
+    
     {{error}}
-
-    <form action="/crear_pedido_emp/" method="POST">
-        {% csrf_token %}
-        {{form}}
-        {{form1}}
-
-        <button>
-            Confirmar Pedido
-        </button>
-    </form>
+    <main>
+        <form action="/homeC/pedidosCajero/pedidosemp/" method="POST">
+            {% csrf_token %}
+            {{form}}
+            {{form1}}
+    
+            <br>
+            <br>
+            <button>
+                Confirmar Pedido
+            </button>
+        </form>
+    
+        <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </a>
+    </main>
+    
 {% endblock %}

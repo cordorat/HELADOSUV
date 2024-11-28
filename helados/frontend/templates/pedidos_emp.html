@@ -1,8 +1,11 @@
 {% extends 'layouts/base.html' %}
 
-{% block content %}
+{% block user %}
+Cajero
+{% endblock %}
 
-<h1> Pedidos al Detal </h1>
+{% block content %}
+    <h2 class="dashboard-heading"> Pedidos al Detal </h2>
 
 <form method="POST">
     {% csrf_token %}
@@ -47,7 +50,7 @@
     {% endif %}
     {% endif %}
 {% else %}
-<h2>Todos los pedidos</h2>
+<h3>Todos los pedidos</h3>
 <ul>
     {% for pedido in pedidos %}
     <b>
@@ -67,5 +70,14 @@
     <p></p>
     {% endfor %}
 </ul>
+
 {% endif %}
+
+
+<a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+</a>
+
 {% endblock %}
