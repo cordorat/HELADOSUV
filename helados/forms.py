@@ -16,7 +16,7 @@ class agregarHeladoForm(ModelForm):
 class CrearEmpleadoForm(ModelForm):
     class Meta:
         model = Empleado
-        fields = ['nombre', 'apellido', 'documento', 'telefono', 'activo', 'horaTrabajada']
+        fields = ['nombre', 'apellido', 'documento', 'telefono', 'activo']
     @staticmethod
     def contar_empleados():
         return Empleado.objects.count()
@@ -59,30 +59,14 @@ class PedidoForm(ModelForm):
 class PedidoEmpleadoForm(ModelForm):
     class Meta:
         model = PedidoEmpleado
-        fields = ['codigo', 'producto', 'empleado', 'fecha']
+        fields = ['codigo', 'producto', 'empleado', 'fecha', 'horaTrabajada']
 
     producto = forms.ModelMultipleChoiceField(
         queryset=Helado.objects.all(),  # Lista de productos disponibles
         widget=forms.CheckboxSelectMultiple,  # Puedes usar un widget para mostrar los productos como checkboxes
         required=True
     )
-    def horas_trabajadas_totales(filtro=None):
-        """
-        Devuelve las horas trabajadas de todos los empleados, con la posibilidad
-        de filtrar por un día, mes o año específico.
-        """
-        if filtro:
-            hoy = datetime.now()
-
-            if filtro == "dia":
-                return Pedido.objects.filter(fecha=hoy.date()).aggregate(Sum('horas_trabajadas'))['horas_trabajadas__sum'] or 0
-            elif filtro == "mes":
-                return Pedido.objects.filter(fecha__month=hoy.month, fecha__year=hoy.year).aggregate(Sum('horas_trabajadas'))['horas_trabajadas__sum'] or 0
-            elif filtro == "anio":
-                return Pedido.objects.filter(fecha__year=hoy.year).aggregate(Sum('horas_trabajadas'))['horas_trabajadas__sum'] or 0
-        else:
-            # Si no se pasa filtro, se suman todas las horas trabajadas
-            return Pedido.objects.aggregate(Sum('horas_trabajadas'))['horas_trabajadas__sum'] or 0
+    
 
 class BusquedaForm(forms.Form):
     query = forms.CharField(label='Buscar', max_length=100, required=True)
@@ -104,5 +88,4 @@ class ReporteForm(forms.Form):
     # Filtro para horas trabajadas (dia, mes, año)
     filtro_horas = forms.ChoiceField(choices=[('dia', 'Día'), ('mes', 'Mes'), ('anio', 'Año')], required=False)
     
-    # Filtro para empleado (si el usuario desea filtrar por empleado para la productividad promedio)
-    empleado_id = forms.IntegerField(required=False, label="ID del empleado")
+    

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 # Create your models here.
 class Helado (models.Model):
@@ -17,7 +18,7 @@ class Empleado (models.Model):
     documento = models.IntegerField (blank= False)
     telefono = models.IntegerField(blank= False, default=0)
     activo = models.BooleanField(default=True)
-    horaTrabajada = models.IntegerField(blank= False, default=0)
+    
 
     def __str__(self):
         return "Nombre: " + self.nombre + " - " + "Apellido: " + self.apellido
@@ -42,4 +43,7 @@ class PedidoEmpleado (models.Model):
     codigo = models.IntegerField(blank=False)
     fecha = models.DateTimeField(blank=False, editable=True)
     producto = models.ManyToManyField(Helado, related_name='pedidosemp')
-    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='pedidosemp')   
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='pedidosemp')
+    horaTrabajada = models.IntegerField(blank= False, default=0)
+
+    

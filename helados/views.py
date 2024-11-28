@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-import django.db
+import django.db 
 from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm, ReporteForm
 from .models import Helado
 from .models import Empleado
 from .models import Pedido, PedidoEmpleado
-
+from django.db.models import Sum
 
 
 # Create your views here.
@@ -71,6 +71,18 @@ def iniciarSesionCajero(request):
         return render(request, 'inicio_cajero.html', {
             'form': AuthenticationForm
         })
+    else:
+        user = authenticate(
+            request, username=request.POST['username'], password=request.POST['password'])
+
+        if user is None:
+            return render(request, 'inicio_cajero.html', {
+                'form': AuthenticationForm,
+                'error': 'El usuario o contrasena es incorrecto'
+            })
+        else:
+            login(request, user)
+            return redirect('homeC')
 
 
 def homeAdmin(request):
@@ -358,3 +370,12 @@ def cajaCajero(request):
 
 def ayuda(request):
     return render(request,'ayuda.html')
+
+def reporte(request):
+    total = Pedido.objects.aggregate(Sum('horaTrabajada'))['horaTrabajada__sum']
+    
+    # Si no hay pedidos, el total será 0
+    if total is None:
+        total = 0
+    
+    return render(request, 'reporte.html', {'total_horas': total})
