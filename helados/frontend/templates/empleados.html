@@ -1,21 +1,30 @@
 {% extends 'layouts/base.html' %}
 
+{% block user %}
+Admin
+{% endblock %}
+
 {% block content %}
 
-<h1> Empleados </h1>
+    <h2 class="dashboard-heading"> Empleados </h2>
 
-<ul>
-    {% for empleado in empleados %}
-    <li>
-        <a href="{% url 'editar_empleado' empleado.id %}">
-            <h1>{{empleado.documento}}</h1>
-            <p> {{empleado.nombre}} </p>
-            <p> {{empleado.apellido}} </p>
-            <b>Activo: </b> {{ empleado.activo }}
-            <p></p>
-            </a>
-        
-    </li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for empleado in empleados %}
+        <li>
+            <a href="{% url 'editar_empleado' empleado.id %}">
+                <h3>{{empleado.documento}}</h3>
+                <p> {{empleado.nombre}} </p>
+                <p> {{empleado.apellido}} </p>
+                <b>Activo: </b> {{ empleado.activo }}
+                <p></p>
+                </a>
+            
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
 {% endblock %}

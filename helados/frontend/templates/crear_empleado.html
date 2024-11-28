@@ -1,16 +1,36 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block user %}
+Admin
+{% endblock %}
 
 {% block content %}
-    <h1>Crear Empleado</h1>
+    <h2 class="dashboard-heading">AGREGAR EMPLEADO</h2>
 
     {{error}}
-
-    <form action="/crearEmpleado/" method="POST">
-        {% csrf_token %}
-        {{form}}
-
-        <button>
-            Guardar
-        </button>
-    </form>
+    <main>
+        <div class="left-column">
+                <img src="{% static 'images/avatar.png' %}" alt="Avatar" width="300" height="300">
+            
+        </div>
+    
+        <div class="right-column">
+            <form action="/homeA/gestionarEmpleado/crearEmpleado/" method="POST">
+                {% csrf_token %}
+                {{form}}
+                <br>
+                <br>
+                <button>
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </main>
+    
+    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
 {% endblock %}

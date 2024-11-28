@@ -53,13 +53,14 @@ urlpatterns = [
 
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),
+    path('ayuda/',views.ayuda, name='ayuda'),
 
     path('homeC/vendedoresCajero/crear_pedido/', views.crearPedido, name='crear_pedido'),
     path('homeC/vendedoresCajero/pedidos/', views.pedidos, name='pedidos'),
     path('editar_pedido/<int:pedido_id>/', views.editarPedido, name='editar_pedido'),
     path('buscar_pedido/', views.buscarPedido, name='buscar_pedido'),
 
-    path('homeC/pedidosCajero/pedidosemp/', views.pedidosEmp, name='pedidosemp'),
+    path('homeC/pedidosCajero/pedidosemp/', views.pedidosEmp,  name='pedidosemp'),
     path('homeC/pedidosCajero/crear_pedido_emp/', views.crearPedidoEmpleado, name='crear_pedido_emp'),
     path('buscar_pedidos_menor/', views.buscarPedidoEmp, name='buscarpedidosemp'),
     path('editar_pedidos_menor/<int:pedido_id>', views.editarPedidoEmp, name='editarpedidosemp'),

@@ -3,11 +3,11 @@
 {% block content %}
     <h1>Buscar Pedidos</h1>
 
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}  <!-- Renderiza el formulario con los campos como párrafos -->
-            <button type="submit">Buscar</button> <!-- Botón de envío -->
-        </form>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renderiza el formulario con los campos como párrafos -->
+        <button type="submit">Buscar</button> <!-- Botón de envío -->
+    </form>
 
     {% if buscar_realizado %}   
         {% if error_busqueda %}

@@ -230,8 +230,32 @@ def crearPedidoEmpleado(request):
 
 
 def pedidosEmp(request):
-    pedidos = PedidoEmpleado.objects.filter()
-    return render(request, 'pedidos_emp.html', {'pedidos': pedidos})
+    form = BusquedaCodigoForm(request.POST)
+    # Obtiene todos los empleados por defecto
+    pedidos = PedidoEmpleado.objects.all()
+    buscar_realizado = False
+    error_busqueda = None
+
+    if request.method == 'POST':
+        buscar_realizado = True
+        if form.is_valid():
+                query = form.cleaned_data['query']
+                if query:
+                    try:
+                        query = int(query)
+                        pedidos = pedidos.filter(codigo=query)
+                        if not pedidos:
+                            error_busqueda = "No existe el pedido"
+                    except ValueError:
+                        error_busqueda = "El codigo debe ser valido"
+                else:
+                    error_busqueda = "El campo no puede estar vacio"
+                    
+    
+    return render(request, 'pedidos_emp.html', {'form': form, 
+                                                'pedidos': pedidos, 
+                                                'buscar_realizado': buscar_realizado, 
+                                                'error_busqueda' : error_busqueda})
 
 
 def buscarPedidoEmp(request):
@@ -332,36 +356,5 @@ def pedidosCajero(request):
 def cajaCajero(request):
     return render(request, 'caja_cajero.html')
 
-def reporte(request):
-    # Inicializamos el formulario con los datos de la solicitud (GET o POST)
-    form = ReporteForm(request.GET or None)
-    
-    # Definimos las variables de resultados
-    total_empleados = None
-    horas_trabajadas = None
-    productividad_promedio = None
-    
-    if request.method == "GET" and form.is_valid():
-        # Obtener el valor de los filtros del formulario
-        filtro_horas = form.cleaned_data.get('filtro_horas')
-        empleado_id = form.cleaned_data.get('empleado_id')
-        
-        # 1. Calcular la cantidad total de empleados
-        total_empleados = Empleado.contar_empleados()
-        
-        # 2. Calcular las horas trabajadas totales con el filtro seleccionado
-        if filtro_horas:
-            horas_trabajadas = Pedido.horas_trabajadas_totales(filtro=filtro_horas)
-        
-        # 3. Calcular la productividad promedio
-        if empleado_id is not None:
-            productividad_promedio = Empleado.productividad_promedio(empleado_id)
-        else:
-            productividad_promedio = Empleado.productividad_promedio()
-    
-    return render(request, 'reporte.html', {
-        'form': form,
-        'total_empleados': total_empleados,
-        'horas_trabajadas': horas_trabajadas,
-        'productividad_promedio': productividad_promedio,
-    })
+def ayuda(request):
+    return render(request,'ayuda.html')
