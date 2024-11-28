@@ -46,22 +46,24 @@ urlpatterns = [
     path('buscar_helado/<int:helado_id>/', views.buscarHelado, name='buscarHelado'),
     path('homeA/editarHelado/<int:helado_id>/', views.editar_helado, name='editarHelado'),
 
-    path('homeA/gestionarEmpleado/crearEmpleado/', views.CrearEmpleado, name='crearEmpleado'),
-    path('homeA/gestionarEmpleado/empleados/', views.Empleados, name='empleados'),
-    path('buscar_empleado/', views.BuscarEmpleado, name='buscar_empleado'),
-    path('editar_empleado/<int:empleado_id>/', views.EditarEmpleado, name='editar_empleado'),
+    path('homeA/gestionarEmpleado/crearEmpleado/', views.crearEmpleado, name='crearEmpleado'),
+    path('homeA/gestionarEmpleado/empleados/', views.empleados, name='empleados'),
+    path('buscar_empleado/', views.buscarEmpleado, name='buscar_empleado'),
+    path('editar_empleado/<int:empleado_id>/', views.editarEmpleado, name='editar_empleado'),
 
     path('politicas/', views.politicas, name='politicas'),
     path('terminos/', views.terminos, name = 'terminos'),
     path('ayuda/',views.ayuda, name='ayuda'),
 
     path('homeC/vendedoresCajero/crear_pedido/', views.crearPedido, name='crear_pedido'),
-    path('homeC/vendedoresCajero/pedidos/', views.Pedidos, name='pedidos'),
-    path('editar_pedido/<int:pedido_id>/', views.EditarPedido, name='editar_pedido'),
-    path('buscar_pedido/', views.BuscarPedido, name='buscar_pedido'),
+    path('homeC/vendedoresCajero/pedidos/', views.pedidos, name='pedidos'),
+    path('editar_pedido/<int:pedido_id>/', views.editarPedido, name='editar_pedido'),
+    path('buscar_pedido/', views.buscarPedido, name='buscar_pedido'),
 
     path('homeC/pedidosCajero/pedidosemp/', views.pedidosEmp,  name='pedidosemp'),
     path('homeC/pedidosCajero/crear_pedido_emp/', views.crearPedidoEmpleado, name='crear_pedido_emp'),
     path('buscar_pedidos_menor/', views.buscarPedidoEmp, name='buscarpedidosemp'),
     path('editar_pedidos_menor/<int:pedido_id>', views.editarPedidoEmp, name='editarpedidosemp'),
+
+    path('reporte/', views.reporte, name = 'reporte'),
 ]

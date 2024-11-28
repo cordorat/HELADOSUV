@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-import django.db
-from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm
+import django.db 
+from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm, ReporteForm
 from .models import Helado
 from .models import Empleado
 from .models import Pedido, PedidoEmpleado
+from django.db.models import Sum
 
 
 # Create your views here.
@@ -70,6 +71,18 @@ def iniciarSesionCajero(request):
         return render(request, 'inicio_cajero.html', {
             'form': AuthenticationForm
         })
+    else:
+        user = authenticate(
+            request, username=request.POST['username'], password=request.POST['password'])
+
+        if user is None:
+            return render(request, 'inicio_cajero.html', {
+                'form': AuthenticationForm,
+                'error': 'El usuario o contrasena es incorrecto'
+            })
+        else:
+            login(request, user)
+            return redirect('homeC')
 
 
 def homeAdmin(request):
@@ -136,7 +149,7 @@ def terminos(request):
     return render(request, 'terminos.html')
 
 
-def CrearEmpleado(request):
+def crearEmpleado(request):
     if request.method == 'GET':
         return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm})
     else:
@@ -149,12 +162,12 @@ def CrearEmpleado(request):
             return render(request, 'crear_empleado.html', {'form': CrearEmpleadoForm, 'error': 'No se ha podido crear el perfil del Empleado'})
 
 
-def Empleados(request):
+def empleados(request):
     empleados = Empleado.objects.all()
     return render(request, 'empleados.html', {'empleados': empleados})
 
 
-def BuscarEmpleado(request):
+def buscarEmpleado(request):
     form = BusquedaForm(request.GET)
     print(form)
     # Si el formulario se ha enviado con un término de búsqueda
@@ -169,7 +182,7 @@ def BuscarEmpleado(request):
     return render(request, 'buscar_empleado.html', {'form': form, 'empleados': empleados})
 
 
-def EditarEmpleado(request, empleado_id):
+def editarEmpleado(request, empleado_id):
     if request.method == 'GET':
         empleado = get_object_or_404(Empleado, pk=empleado_id)
         form = CrearEmpleadoForm(instance=empleado)
@@ -302,12 +315,12 @@ def empleadoAdmin(request):
     return render(request, 'empleado_admin.html')
 
 
-def Pedidos(request):
+def pedidos(request):
     pedidos = Pedido.objects.all()
     return render(request, 'pedidos.html', {'pedidos': pedidos})
 
 
-def EditarPedido(request, pedido_id):
+def editarPedido(request, pedido_id):
     if request.method == 'GET':
         pedido = get_object_or_404(Pedido, pk=pedido_id)
         form = PedidoForm(instance=pedido)
@@ -322,7 +335,7 @@ def EditarPedido(request, pedido_id):
             return render(request, 'editar_pedido.html', {'pedido': pedido, 'form': form, 'error': "No se pudo editar el pedido."})
 
 
-def BuscarPedido(request):
+def buscarPedido(request):
     form = BusquedaCodigoForm(request.GET)
     print(form)
     # Si el formulario se ha enviado con un término de búsqueda
@@ -357,3 +370,12 @@ def cajaCajero(request):
 
 def ayuda(request):
     return render(request,'ayuda.html')
+
+def reporte(request):
+    total = Pedido.objects.aggregate(Sum('horaTrabajada'))['horaTrabajada__sum']
+    
+    # Si no hay pedidos, el total será 0
+    if total is None:
+        total = 0
+    
+    return render(request, 'reporte.html', {'total_horas': total})

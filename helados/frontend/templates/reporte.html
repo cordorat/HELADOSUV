@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %}
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Empleados y Productividad</title>
+</head>
+<body>
+    <h1>Generar Reporte</h1>
+
+    <!-- Formulario para los filtros -->
+    <form method="get">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generar Reporte</button>
+    </form>
+
+    <h2>Resultados:</h2>
+
+    <!-- Resultados del reporte -->
+    <div>
+        <h3>Total de Empleados:</h3>
+        <p>{{ total_empleados }}</p>
+    </div>
+
+    <div>
+        <h3>Horas Trabajadas Totales:</h3>
+        <p>{{ horas_trabajadas }}</p>
+    </div>
+
+    <div>
+        <h3>Productividad Promedio:</h3>
+        <p>{{ productividad_promedio }}</p>
+    </div>
+
+</body>
+</html>
+
+{% endblock %}
