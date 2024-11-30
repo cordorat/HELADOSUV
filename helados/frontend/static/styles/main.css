@@ -3,6 +3,7 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
     height: 100%;
+    width: 100%;
 }
 
 .container {
@@ -16,6 +17,7 @@ body, html {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    max-width: 100%;
 }
 
 .background-pattern {

@@ -1,5 +1,7 @@
 {% extends 'layouts/base.html' %}
 
+{% load static %}
+
 {% block user %}
 Cajero
 {% endblock %}
@@ -8,16 +10,24 @@ Cajero
     <h2 class="dashboard-heading">Crear Pedido</h2>
 
     {{error}}
+    <main>
+        <div class="left-column">
+            <form action="/homeC/vendedoresCajero/pedidos/" method="POST">
+                {% csrf_token %}
+                {{form}}
+                {{form1}}
+        
+                <button>
+                    Confirmar Pedido
+                </button>
+            </form>
+        </div>
 
-    <form action="/homeC/vendedoresCajero/pedidos/" method="POST">
-        {% csrf_token %}
-        {{form}}
-        {{form1}}
-
-        <button>
-            Confirmar Pedido
-        </button>
-    </form>
+        <div class="right-column">
+            <img src="{% static 'images/entrega-de-pedidos.png' %}" alt="helado" width="300" height="300">
+        </div>
+    </main>
+    
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

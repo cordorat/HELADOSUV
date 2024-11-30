@@ -6,30 +6,49 @@ Admin
 
 {% block content %}
     <h2 class="dashboard-heading">Helados</h2>
+    <main class="container my-4">  <!-- Contenedor principal con margen superior e inferior -->
 
-    <ul>
-        {% for helado in helados %}
-        <li>
-            <a href="{% url 'buscarHelado' helado.id %}">
-                <b>Marca: </b> {{ helado.marca }}
-            <p></p>
+        <div class="scrollspy-example border rounded p-3 d-flex flex-column align-items-center"
+        data-bs-spy="scroll" 
+        data-bs-offset="0" 
+        tabindex="0" 
+        style="height: 500px; width: 1600px; ; overflow-y: auto; align-items: center;">
 
-            <b>Nombre: </b> {{ helado.nombre }}
-            <p></p>
 
-            <b>Activo: </b> {{ helado.activo }}
-            <p></p>
+            {% for helado in helados %}
+                <a href="{% url 'editarHelado' helado.id %}" class="text-decoration-none w-100" style="max-width: 600px;">
+                    <div class="card mb-3 shadow-sm">
+                        
+                        <div class="card-header bg-primary text-white">
+                            <b>Nombre: </b> {{ helado.nombre }}
+                        <p></p>
 
-            <b>Descripcion: </b> {{ helado.descripcion }}
-            <p></p>
+                        </div>
 
-            </a>
-            <br>
-            <!-- Botón de Editar -->
-            <a href="{% url 'editarHelado' helado.id %}" class="btn btn-primary">Editar</a>
-        </li>
-        {% endfor %}
-    </ul>
+                        <div class="card-body">
+                            <p>
+                                <b>Marca: </b> {{ helado.marca }}
+                            </p>
+
+                            <p>
+                                <b>Activo: </b> {{ helado.activo }}
+                            </p>
+
+                            <p>
+                                <b>Descripcion: </b> {{ helado.descripcion }}
+                            </p>
+
+                        </div>
+                    </div>
+
+                </a>
+
+                
+            {% endfor %}
+
+        </div>
+
+    </main>
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
