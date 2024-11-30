@@ -3,11 +3,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 import django.db 
-from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, EmpleadoForm, BusquedaCodigoForm, ReporteForm
+from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, BusquedaCodigoForm
 from .models import Helado
 from .models import Empleado
 from .models import Pedido, PedidoEmpleado
-from django.db.models import Sum
+
 
 
 # Create your views here.
@@ -204,13 +204,14 @@ def crearPedido(request):
         })
     else:
         try:
+            
             form = PedidoForm(request.POST)
             form1 = ClienteForm(request.POST)
             nuevo_cliente = form1.save()
 
             nuevo_pedido = form.save(commit=False)
             nuevo_pedido.cliente = nuevo_cliente
-
+            
             nuevo_pedido.save()
 
             return redirect('homeC')
@@ -376,12 +377,3 @@ def editarPerfil(request):
 
 def olvidar(request):
     return render(request, 'olvidar.html')
-
-def reporte(request):
-    total = Pedido.objects.aggregate(Sum('horaTrabajada'))['horaTrabajada__sum']
-    
-    # Si no hay pedidos, el total será 0
-    if total is None:
-        total = 0
-    
-    return render(request, 'reporte.html', {'total_horas': total})

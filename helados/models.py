@@ -41,9 +41,8 @@ class Pedido (models.Model):
 
 class PedidoEmpleado (models.Model):
     codigo = models.IntegerField(blank=False)
-    fecha = models.DateTimeField(blank=False, editable=True)
+    fecha = models.DateTimeField(auto_now_add=True)
     producto = models.ManyToManyField(Helado, related_name='pedidosemp')
-    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='pedidosemp')
-    horaTrabajada = models.IntegerField(blank= False, default=0)
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='pedidosemp') 
 
     
