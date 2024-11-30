@@ -11,26 +11,17 @@ Cajero
     
     {{error}}
     <main>
-        <div class="left-column">
-
-            <form action="/homeC/pedidosCajero/pedidosemp/" method="POST">
-                {% csrf_token %}
-                {{form}}
-                {{form1}}
-        
-                <br>
-                <br>
-                <button>
-                    Confirmar Pedido
-                </button>
-            </form>
-
-        </div>
-
-        <div class="right-column">
-            <img src="{% static 'images/entrega-de-pedidos.png' %}" alt="helado" width="300" height="300">
-        </div>
-        
+        <form action="/homeC/pedidosCajero/crear_pedido_emp/" method="POST">
+            {% csrf_token %}
+            {{form}}
+            {{form1}}
+    
+            <br>
+            <br>
+            <button>
+                Confirmar Pedido
+            </button>
+        </form>
     
         <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
