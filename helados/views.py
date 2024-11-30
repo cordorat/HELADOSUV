@@ -103,7 +103,7 @@ def agregarHelado(request):
             form = agregarHeladoForm(request.POST)
             nuevo_helado = form.save(commit=False)
             nuevo_helado.save()
-            return redirect('homeA')
+            return redirect('helados')
         except ValueError:
             return render(request, 'agregar_helado.html', {
                 'form': agregarHeladoForm,
@@ -214,7 +214,7 @@ def crearPedido(request):
             
             nuevo_pedido.save()
 
-            return redirect('homeC')
+            return redirect('pedidos')
         except ValueError:
             return render(request, 'crear_pedido.html', {
                 'form': PedidoForm, 'form1': ClienteForm,
