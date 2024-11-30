@@ -67,5 +67,5 @@ urlpatterns = [
     path('buscar_pedidos_menor/', views.buscarPedidoEmp, name='buscarpedidosemp'),
     path('editar_pedidos_menor/<int:pedido_id>', views.editarPedidoEmp, name='editarpedidosemp'),
 
-    path('reporte/', views.reporte, name = 'reporte'),
+    
 ]
