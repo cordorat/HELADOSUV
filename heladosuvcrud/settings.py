@@ -130,3 +130,12 @@ STATICFILES_DIRS = [
 STATICFILES_DIRS = [
     BASE_DIR / 'helados/frontend/static'
 ]
+
+# Configuración básica de correo
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Usa el servidor SMTP que prefieras
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'cristianfranco772414@gmail.com'  # Tu dirección de correo
+EMAIL_HOST_PASSWORD = 'franco99'  # Tu contraseña
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

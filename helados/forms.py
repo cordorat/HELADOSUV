@@ -5,6 +5,7 @@ from .models import Pedido
 from django import forms
 from .models import Cliente
 from .models import PedidoEmpleado
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class agregarHeladoForm(ModelForm):
@@ -58,5 +59,17 @@ class EmpleadoForm(ModelForm):
         fields = ['documento' ,'nombre', 'apellido', 'telefono',]
 
 
-    
-    
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].label = "Contraseña actual"
+        self.fields['new_password1'].label = "Nueva contraseña"
+        self.fields['new_password2'].label = "Confirmar nueva contraseña"
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': field.label,
+            })   
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(label="Correo electrónico", max_length=254)    
