@@ -11,26 +11,17 @@
 
 </head>
 <body>
-    <div class="container">
-        <div class="background-pattern"></div>
-        <div class="card" style="width: 800px;">
-            <h1 style="color: white;">RECUPERA TU CONTRASEÑA</h1>
-            <hr>
+    <h1>Buscar Pedidos</h1>
 
-            <p style="color: white;">INGRESA TU CORREO ELECTRÓNICO O NÚMERO DE CELULAR PARA BUSCAR TU CUENTA.</p>
-            <div class="input-group mb-3 " style="width: 700px;">
-                <input type="text" class="form-control" placeholder="CORREO ELECTRÓNICO O NÚMERO DE CELULAR" aria-label="username" aria-describedby="basic-addon1" style="border: 60px;">
-
-            </div>
-            <div class="buttons">
-                <a href="/" class="text-decoration-none">
-                    <button type="button" class="btn btn-secondary rounded-pill">CANCELAR</button>
-                </a>
-                <button type="button" class="btn btn-primary rounded-pill">BUSCAR</button>
-            </div>
-        </div>
-        
-    </div>
+    {% if form %}
+        <form method="get">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Renderiza el formulario con los campos como párrafos -->
+            <button type="submit">Buscar</button> <!-- Botón de envío -->
+        </form>
+    {% else %}
+        <p>Formulario no disponible.</p>
+    {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
 

@@ -7,6 +7,11 @@ from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaFor
 from .models import Helado
 from .models import Empleado
 from .models import Pedido, PedidoEmpleado
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import CustomPasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
 
 
 
@@ -372,8 +377,52 @@ def cajaCajero(request):
 def ayuda(request):
     return render(request,'ayuda.html')
 
-def editarPerfil(request):
-    return render(request,'editar_perfil.html')
-
 def olvidar(request):
-    return render(request, 'olvidar.html')
+    form = BusquedaForm(request.GET)
+    print(form)
+    # Si el formulario se ha enviado con un término de búsqueda
+    usuario = User.objects.all()  # Obtiene todos los empleados por defecto
+
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            # Filtra los empleados por nombre (insensible a mayúsculas/minúsculas)
+            usuario = usuario.filter(email__icontains=query)
+            return redirect('cambiar_contraseña')
+
+    return render(request, 'olvidar.html', {'form': form})
+
+
+@login_required
+def cambiarContraseña(request):
+    if request.method == 'POST':
+        new_password = request.POST.get('Nueva Contrseña')
+
+        if new_password:
+            # Actualiza la contraseña del usuario
+            user = request.user
+            user.set_password(new_password)
+            user.save()
+
+            messages.success(request, "La contraseña ha sido actualizada correctamente.")
+            return redirect('home')  # Redirige a la página de perfil o donde prefieras
+        else:
+            messages.error(request, "Por favor ingrese una nueva contraseña.")
+    return render(request, 'cambiar_contraseña.html')
+
+@login_required
+def editarPerfil(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()  # Guarda la nueva contraseña
+            update_session_auth_hash(request, user)  # Mantiene al usuario logueado
+            messages.success(request, '¡Tu contraseña se cambió con éxito!')
+            return redirect('home')  # Redirige a la página deseada
+        else:
+            messages.error(request, 'Corrige los errores en el formulario.')
+    else:
+        form = CustomPasswordChangeForm(user=request.user)
+    return render(request, 'editar_perfil.html', {'form': form})
+
+        

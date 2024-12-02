@@ -14,32 +14,15 @@ Usuario
     
     <main>
         
-
-        <div class="left-column">
-            <img src="{% static 'images/avatar.png' %}" alt="avatar" width="300" height="300">
-        </div>
-
-        <div class="right-column">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Contraseña nueva</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Confirmar contraseña</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Contraseña actual</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-
-            <button type="button" class="btn btn-outline-primary">
-                Guardar cambios
-            </button>
-
-        </div>
+        
+        <h2>Cambiar Contraseña</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+        </form>
+        
+        
     </main>
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
