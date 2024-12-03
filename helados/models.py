@@ -33,13 +33,13 @@ class Cliente (models.Model):
 
 
 class Pedido (models.Model):
-    codigo = models.IntegerField(blank=False)
+    codigo = models.AutoField(primary_key=True)
     fecha = models.DateTimeField(auto_now_add=True)
-    producto = models.ManyToManyField(Helado, related_name='pedidosh')
+    producto = models.ManyToManyField(Helado, related_name='pedidoshela')
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
 
 class PedidoEmpleado (models.Model):
-    codigo = models.IntegerField(blank=False)
+    codigo = models.AutoField(primary_key=True)
     fecha = models.DateTimeField(auto_now_add=True)
     producto = models.ManyToManyField(Helado, related_name='pedidosemp')
     empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='pedidosemp') 
