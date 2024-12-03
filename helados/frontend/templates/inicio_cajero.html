@@ -11,8 +11,22 @@ Inicio Sesión | Helados UV
 <form action="/singinC/" method="post">
     {% csrf_token %}
 
-    {{form.as_p}}
-    <button>
+    <div class="mb-3">
+        <label for="id_username" class="form-label" style="color: white;">Nombre de usuario</label>
+        <div class="input-group">
+            <span class="input-group-text">&#128100</span>  <!-- Ícono de Bootstrap Icons -->
+            {{ form.username }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="id_password" class="form-label" style="color: white;">Contraseña</label>
+        <div class="input-group">
+            <span class="input-group-text">&#128274</span>  <!-- Ícono de Bootstrap Icons -->
+            {{ form.password }}
+        </div>
+    </div>
+    <button class="button" style="width: 341px; height: 40px; padding: 5px;">
         Entrar
     </button>
 

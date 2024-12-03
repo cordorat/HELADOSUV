@@ -9,8 +9,8 @@ Cajero
 
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }} <!-- Renderiza el formulario con los campos como párrafos -->
-    <button type="submit">Buscar</button> <!-- Botón de envío -->
+    <!--{{ form.as_p }} <!-- Renderiza el formulario con los campos como párrafos 
+    <button type="submit">Buscar</button> <!-- Botón de envío 
 </form>
 <p></p>
 
@@ -49,8 +49,7 @@ Cajero
         <p>No se encontraron pedidos con ese código.</p>
     {% endif %}
     {% endif %}
-{% else %}
-<h3>Todos los pedidos</h3>
+{% else %}-->
 <ul>
     {% for pedido in pedidos %}
     <b>
@@ -71,7 +70,7 @@ Cajero
     {% endfor %}
 </ul>
 
-{% endif %}
+<!--{% endif %}-->
 
 
 <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
