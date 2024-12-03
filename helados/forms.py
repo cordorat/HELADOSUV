@@ -73,3 +73,26 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField(label="Correo electrónico", max_length=254)    
+
+class CambiarContraseniaForm(forms.Form):
+    nueva_contrasenia = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Nueva Contraseña'}),
+        min_length=8,
+        label="Nueva Contraseña"
+    )
+    confirmar_contrasenia = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar Contraseña'}),
+        min_length=8,
+        label="Confirmar Contraseña"
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        nueva_contrasenia = cleaned_data.get("nueva_contrasenia")
+        confirmar_contrasenia = cleaned_data.get("confirmar_contrasenia")
+
+        if nueva_contrasenia and confirmar_contrasenia:
+            if nueva_contrasenia != confirmar_contrasenia:
+                raise forms.ValidationError("Las contraseñas no coinciden.")
+        
+        return cleaned_data

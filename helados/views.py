@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 import django.db 
-from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, BusquedaCodigoForm
+from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, BusquedaCodigoForm, CambiarContraseniaForm
 from .models import Helado
 from .models import Empleado
 from .models import Pedido, PedidoEmpleado
@@ -378,37 +378,57 @@ def ayuda(request):
     return render(request,'ayuda.html')
 
 def olvidar(request):
-    form = BusquedaForm(request.GET)
-    print(form)
-    # Si el formulario se ha enviado con un término de búsqueda
-    usuario = User.objects.all()  # Obtiene todos los empleados por defecto
+    form = BusquedaForm(request.POST)
+    form2 = CambiarContraseniaForm(request.POST)
+
+    print("Formulario Busqueda:", form)  # Verificar el formulario de búsqueda
+    print("Formulario Cambio Contraseña:", form2)  # Verificar el formulario de contraseña
+
+    usuario = None  # Inicializamos la variable usuario
 
     if form.is_valid():
         query = form.cleaned_data['query']
         if query:
-            # Filtra los empleados por nombre (insensible a mayúsculas/minúsculas)
-            usuario = usuario.filter(email__icontains=query)
-            return redirect('cambiar_contraseña')
+            # Filtra los usuarios por correo electrónico
+            
+            usuario = User.objects.filter(email__icontains=query).first()  # Obtiene el primer usuario que coincida
+            print("Usuario encontrado:", usuario)  # Verificamos que el usuario sea correcto
 
-    return render(request, 'olvidar.html', {'form': form})
+            if usuario:
+                if request.method == 'POST':  # Solo procesamos si el método es POST
+                    print("Procesando formulario de cambio de contraseña")
+                    if form2.is_valid():
+                        # Si el formulario de contraseña es válido
+                        print("Formulario de cambio de contraseña es válido")
+                        nueva_contrasenia = form2.cleaned_data['nueva_contrasenia']
 
+                        # Cambiar la contraseña
+                        usuario.set_password(nueva_contrasenia)
+                        usuario.save()  # Guarda los cambios
 
-@login_required
-def cambiarContraseña(request):
-    if request.method == 'POST':
-        new_password = request.POST.get('Nueva Contrseña')
+                        # Mantener la sesión activa después de cambiar la contraseña
+                        messages.success(request, "¡Tu contraseña ha sido cambiada exitosamente!")
+                        return redirect('home')  # Redirige a la página de inicio o donde prefieras
+                    else:
+                        print("Errores en el formulario de cambio de contraseña:", form2.errors)
+                        messages.error(request, "Por favor, corrige los errores en el formulario.")
+                else:
+                    # Si no es POST, muestra el formulario vacío
+                    form2 = CambiarContraseniaForm()
 
-        if new_password:
-            # Actualiza la contraseña del usuario
-            user = request.user
-            user.set_password(new_password)
-            user.save()
-
-            messages.success(request, "La contraseña ha sido actualizada correctamente.")
-            return redirect('home')  # Redirige a la página de perfil o donde prefieras
+                return render(request, 'olvidar.html', {'form': form, 'form2': form2})
+            else:
+                # Si no se encuentra el usuario
+                messages.error(request, "No se encontró un usuario con ese correo.")
+                return render(request, 'olvidar.html', {'form': form, 'form2': form2})
         else:
-            messages.error(request, "Por favor ingrese una nueva contraseña.")
-    return render(request, 'cambiar_contraseña.html')
+            # Si no se ingresa un correo en el formulario de búsqueda
+            messages.error(request, "Por favor, ingresa un término de búsqueda.")
+            return render(request, 'olvidar.html', {'form': form, 'form2': form2})
+
+    return render(request, 'olvidar.html', {'form': form, 'form2': form2})
+
+
 
 @login_required
 def editarPerfil(request):

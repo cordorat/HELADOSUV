@@ -1,29 +1,36 @@
-{% load static %}
+{% extends 'layouts/base.html' %}
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recupera tu contraseña</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
-
-</head>
-<body>
-    <h1>Buscar Pedidos</h1>
+{% block content %}
+    <h1>Buscar Correo</h1>
 
     {% if form %}
-        <form method="get">
+        <form method="post">
             {% csrf_token %}
             {{ form.as_p }}  <!-- Renderiza el formulario con los campos como párrafos -->
-            <button type="submit">Buscar</button> <!-- Botón de envío -->
+            
+            {{ form2.as_p }}
+            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
         </form>
     {% else %}
         <p>Formulario no disponible.</p>
     {% endif %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
+    <h2>Resultados de búsqueda</h2>
 
-</body>
-</html>
+    {% if user %}
+        <ul>
+            {% for pedido in pedidos %}
+            <li>{{ user.username }} - {{ user.email }}</li>
+                
+                <h2>Cambiar Contraseña</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form2.as_p }}
+                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                </form>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontro el correo.</p>
+    {% endif %}
+{% endblock %}
