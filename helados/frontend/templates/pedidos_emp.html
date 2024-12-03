@@ -65,7 +65,7 @@ Cajero
     <li>Documento: {{pedido.empleado.documento}}</li>
     <li>Nombre: {{pedido.empleado.nombre}}</li>
     <li>Apellido: {{pedido.empleado.apellido}}</li>
-    <a href="{% url 'editarpedidosemp' pedido.id %}" class="btn btn-primary">Editar</a>
+    <a href="{% url 'editarpedidosemp' pedido.codigo %}" class="btn btn-primary">Editar</a>
     <p></p>
     {% endfor %}
 </ul>

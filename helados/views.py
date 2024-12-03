@@ -274,6 +274,11 @@ def pedidosEmp(request):
                                                 'pedidos': pedidos, 
                                                 'buscar_realizado': buscar_realizado, 
                                                 'error_busqueda' : error_busqueda})
+def cancelarPedidoEmp (request, pedido_codigo):
+    pedido = get_object_or_404 (Pedido, pk = pedido_codigo)
+    if request.method == 'POST':
+        pedido.delete()
+        return redirect('pedidosemp')
 
 
 def buscarPedidoEmp(request):
@@ -302,14 +307,14 @@ def buscarPedidoEmp(request):
             
 
 
-def editarPedidoEmp(request, pedido_id):
+def editarPedidoEmp(request, pedido_codigo):
     if request.method == 'GET':
-        pedido = get_object_or_404(PedidoEmpleado, pk=pedido_id)
+        pedido = get_object_or_404(PedidoEmpleado, pk=pedido_codigo)
         form = PedidoEmpleadoForm(instance=pedido)
         return render(request, 'editar_pedido_emp.html', {'pedido': pedido, 'form': form})
     else:
         try:
-            pedido = get_object_or_404(PedidoEmpleado, pk=pedido_id)
+            pedido = get_object_or_404(PedidoEmpleado, pk=pedido_codigo)
             form = PedidoEmpleadoForm(request.POST, instance=pedido)
             form.save()
             return redirect('pedidosemp')
@@ -325,15 +330,21 @@ def pedidos(request):
     pedidos = Pedido.objects.all()
     return render(request, 'pedidos.html', {'pedidos': pedidos})
 
+def cancelarPedido (request, pedido_codigo):
+    pedido = get_object_or_404 (Pedido, pk = pedido_codigo)
+    if request.method == 'POST':
+        pedido.delete()
+        return redirect('pedidos')
 
-def editarPedido(request, pedido_id):
+
+def editarPedido(request, pedido_codigo):
     if request.method == 'GET':
-        pedido = get_object_or_404(Pedido, pk=pedido_id)
+        pedido = get_object_or_404(Pedido, pk=pedido_codigo)
         form = PedidoForm(instance=pedido)
         return render(request, 'editar_pedido.html', {'pedido': pedido, 'form': form})
     else:
         try:
-            pedido = get_object_or_404(Pedido, pk=pedido_id)
+            pedido = get_object_or_404(Pedido, pk=pedido_codigo)
             form = PedidoForm(request.POST, instance=pedido)
             form.save()
             return redirect('pedidos')
