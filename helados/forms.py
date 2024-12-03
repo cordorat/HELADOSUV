@@ -22,7 +22,7 @@ class CrearEmpleadoForm(ModelForm):
 class PedidoForm(ModelForm):
     class Meta:
         model = Pedido
-        fields = ['codigo', 'producto']
+        fields = ['producto']
 
     producto = forms.ModelMultipleChoiceField(
         queryset=Helado.objects.all(),  # Lista de productos disponibles
@@ -33,7 +33,7 @@ class PedidoForm(ModelForm):
 class PedidoEmpleadoForm(ModelForm):
     class Meta:
         model = PedidoEmpleado
-        fields = ['codigo', 'producto', 'empleado']
+        fields = ['producto', 'empleado']
 
     producto = forms.ModelMultipleChoiceField(
         queryset=Helado.objects.all(),  # Lista de productos disponibles

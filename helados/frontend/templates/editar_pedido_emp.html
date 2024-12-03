@@ -19,7 +19,17 @@ Cajero
         Guardar cambios
     </button>
 </form>
-<a href="{% url 'editarpedidosemp' pedido.id %}">
+
+<form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    {{error}}
+    <p></p>
+    <button type="submit" class="btn btn-outline-primary">
+        Cancelar pedido
+    </button>
+</form>
+<a href="{% url 'editarpedidosemp' pedido.codigo %}">
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
