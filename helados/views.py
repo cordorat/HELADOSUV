@@ -456,3 +456,6 @@ def editarPerfil(request):
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, 'editar_perfil.html', {'form': form})
 
+def reporte_inventario(request): 
+    helados = Helado.objects.all() 
+    return render(request, 'reporte_inventario.html', {'helados': helados})
