@@ -73,5 +73,7 @@ urlpatterns = [
     path('editar_pedidos_menor/<int:pedido_codigo>', views.editarPedidoEmp, name='editarpedidosemp'),
     path('cancelar_pedidoemp/<int:pedido_codigo>', views.cancelarPedidoEmp, name='cancelar_pedidoemp'),
 
+    #Reportes
+    path('reporte_inventario/', views.reporte_inventario, name='reporte_inventario'),
     
 ]
