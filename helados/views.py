@@ -456,4 +456,3 @@ def editarPerfil(request):
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, 'editar_perfil.html', {'form': form})
 
-        

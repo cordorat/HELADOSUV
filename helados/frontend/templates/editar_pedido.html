@@ -6,24 +6,31 @@ Cajero
 
 {% block content %}
 
-<h2 class="dashboard-heading"> Editar Pedido </h2>
+<h2 class="dashboard-heading"> EDITAR PEDIDO </h2>
 
 {{error}}
 {{form.as_p}}
-<form action="" method="POST">
-    {% csrf_token %}
-    <p></p>
-    <button type="submit" class="btn btn-outline-primary">
-        Guardar cambios
-    </button>
-</form>
-<form action="{% url 'cancelar_pedido' pedido.codigo %}" method="POST">
-    {% csrf_token %}
-    <p></p>
-    <button type="submit" class="btn btn-outline-primary">
-        Cancelar pedido
-    </button>
-</form>
+<div style="display: inline-block;">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p></p>
+        <button type="submit" class="btn btn-outline-primary">
+            Guardar cambios
+        </button>
+    </form>
+</div>
+
+<div style="display: inline-block; margin-left: 10px;">
+    <form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
+        {% csrf_token %}
+        <p></p>
+        <button type="submit" class="btn btn-outline-primary">
+            Cancelar pedido
+        </button>
+    </form>
+</div>
+
+
 <a href="{% url 'editar_pedido' pedido.codigo %}">
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

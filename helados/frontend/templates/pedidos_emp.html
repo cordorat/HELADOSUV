@@ -5,73 +5,94 @@ Cajero
 {% endblock %}
 
 {% block content %}
-    <h2 class="dashboard-heading"> Pedidos al Detal </h2>
+    <h2 class="dashboard-heading"> PEDIDOS AL DETAL </h2>
 
-<form method="POST">
-    {% csrf_token %}
-    <!--{{ form.as_p }} <!-- Renderiza el formulario con los campos como párrafos 
-    <button type="submit">Buscar</button> <!-- Botón de envío 
-</form>
-<p></p>
-
-{% if error_busqueda %}
-    <h2>
-        <p><strong>{{ error_busqueda }}</strong></p>
-    </h2>
-{% endif %}
-
-
-
-{% if buscar_realizado %}
-    {% if not error_busqueda %}
-    <h2>Resultados de la busqueda</h2>
-    {% if pedidos %}
-        <ul>
-            {% for pedido in pedidos %}
-            <b>
-                <h0>Detalle del Pedido</h0>
-            </b>
-            <li>Codigo: {{pedido.codigo}} </li>
-            <li>Fecha: {{pedido.fecha}} </li>
-            <li>Producto: {{pedido.producto}} </li>
+    <main class="container my-4">  <!-- Contenedor principal con margen superior e inferior -->
+        <section>
+            <form method="POST">
+                {% csrf_token %}
+                <div style="display: inline-block;">
+                    {{ form.as_p }} <!-- Renderiza el formulario con los campos como párrafos -->
+                </div>
+                
+                <div style="display: inline-block; margin-left: 10px;">
+                    <button type="submit">Buscar</button> <!-- Botón de envío -->                    
+                </div>
+            </form>
             <p></p>
-            <b>
-                <h0>Empleado</h0>
-            </b>
-            <li>Documento: {{pedido.empleado.documento}}</li>
-            <li>Nombre: {{pedido.empleado.nombre}}</li>
-            <li>Apellido: {{pedido.empleado.apellido}}</li>
-            <a href="{% url 'editarpedidosemp' pedido.id %}" class="btn btn-primary">Editar</a>
-            <p></p>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No se encontraron pedidos con ese código.</p>
-    {% endif %}
-    {% endif %}
-{% else %}-->
-<ul>
-    {% for pedido in pedidos %}
-    <b>
-        <h0>Detalle del Pedido</h0>
-    </b>
-    <li>Codigo: {{pedido.codigo}} </li>
-    <li>Fecha: {{pedido.fecha}} </li>
-    <li>Producto: {{pedido.producto}} </li>
-    <p></p>
-    <b>
-        <h0>Empleado</h0>
-    </b>
-    <li>Documento: {{pedido.empleado.documento}}</li>
-    <li>Nombre: {{pedido.empleado.nombre}}</li>
-    <li>Apellido: {{pedido.empleado.apellido}}</li>
-    <a href="{% url 'editarpedidosemp' pedido.codigo %}" class="btn btn-primary">Editar</a>
-    <p></p>
-    {% endfor %}
-</ul>
+    
+            {% if error_busqueda %}
+                <h2>
+                    <p><strong>{{ error_busqueda }}</strong></p>
+                </h2>
+            {% endif %}
+    
+    
+    
+            {% if buscar_realizado %}
+                {% if not error_busqueda %}
+                <h2>Resultados de la busqueda</h2>
+                {% if pedidos %}
+                    <ul>
+                        {% for pedido in pedidos %}
+                        <a href="{% url 'editarpedidosemp' pedido.codigo %}" class="text-decoration-none w-100" style="max-width: 600px;">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Detalle del pedido</h5>
+                                    <p><b>Codigo: </b>{{pedido.codigo}}</p>
+                                    <p><b>Fecha:</b> {{pedido.fecha}}</p>
+                                    <p><b>Producto:</b>{{pedido.producto}}</p>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Empleado</h5>
+                                    <p><b>Documento: </b> {{pedido.empleado.documento}}</p>
+                                    <p><b>Nombre: </b>{{pedido.empleado.nombre}}</p>
+                                    <p><b>Apellido: </b>{{pedido.empleado.apellido}}</p>
+                                </div>
+                
+                            </div>
+                        </a>  
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No se encontraron pedidos con ese código.</p>
+                {% endif %}
+                {% endif %}
+        </section>
+        
+            {% else %}
 
-<!--{% endif %}-->
+            <div class="scrollspy-example border rounded p-3 d-flex flex-column align-items-center"
+         data-bs-spy="scroll" 
+         data-bs-offset="0" 
+         tabindex="0" 
+         style="height: 500px; width: 1400px; ; overflow-y: auto; align-items: center;">
 
+                {% for pedido in pedidos %}
+                <a href="{% url 'editarpedidosemp' pedido.codigo %}" class="text-decoration-none w-100" style="max-width: 600px;">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title">Detalle del pedido</h5>
+                            <p><b>Codigo: </b>{{pedido.codigo}}</p>
+                            <p><b>Fecha:</b> {{pedido.fecha}}</p>
+                            <p><b>Producto:</b>{{pedido.producto}}</p>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Empleado</h5>
+                            <p><b>Documento: </b> {{pedido.empleado.documento}}</p>
+                            <p><b>Nombre: </b>{{pedido.empleado.nombre}}</p>
+                            <p><b>Apellido: </b>{{pedido.empleado.apellido}}</p>
+                        </div>
+        
+                    </div>
+                </a>    
+                {% endfor %}
+            </div>
+
+        {% endif %}
+        
+            
+    </main>
 
 <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

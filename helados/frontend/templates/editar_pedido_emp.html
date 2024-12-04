@@ -6,29 +6,31 @@ Cajero
 
 {% block content %}
 
-<h2 class="dashboard-heading"> Editar Pedido al Detal </h2>
+<h2 class="dashboard-heading"> EDITAR PEDIDO AL DETAL </h2>
 
 {{error}}
+{{form.as_p}}
+<div style="display: inline-block;">
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <p></p>
+        <button type="submit" class="btn btn-outline-primary">
+            Guardar cambios
+        </button>
+    </form>
+</div>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    {{error}}
-    <p></p>
-    <button type="submit" class="btn btn-outline-primary">
-        Guardar cambios
-    </button>
-</form>
+<div style="display: inline-block; margin-left: 10px;">
+    <form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
+        {% csrf_token %}
+        <p></p>
+        <button type="submit" class="btn btn-outline-primary">
+            Cancelar pedido
+        </button>
+    </form>
+</div>
 
-<form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    {{error}}
-    <p></p>
-    <button type="submit" class="btn btn-outline-primary">
-        Cancelar pedido
-    </button>
-</form>
 <a href="{% url 'editarpedidosemp' pedido.codigo %}">
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
