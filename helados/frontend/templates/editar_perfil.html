@@ -15,12 +15,18 @@ Usuario
     <main>
         
         
-        <h2>Cambiar Contraseña</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
-        </form>
+        <div class="left-column">
+            <img src="{% static 'images/avatar.png' %}" alt="helado" width="300" height="300">
+        </div>
+
+        <div class="right-column">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+            </form>
+        </div>
+        
         
         
     </main>

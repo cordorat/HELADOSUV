@@ -6,22 +6,31 @@ Cajero
 
 {% block content %}
 
-<h2 class="dashboard-heading"> Pedidos </h2>
-<main>
-    <ul>
+<h2 class="dashboard-heading"> Pedidos al por Mayor </h2>
+<main class="container my-4">
+
+    <div class="scrollspy-example border rounded p-3 d-flex flex-column align-items-center"
+         data-bs-spy="scroll" 
+         data-bs-offset="0" 
+         tabindex="0" 
+         style="height: 500px; width: 1600px; ; overflow-y: auto; align-items: center;">
+
         {% for pedido in pedidos %}
-        <li>
-            <a href="{% url 'editar_pedido' pedido.id %}">
-                <h3>{{pedido.codigo}}</h3>
-                <p> {{pedido.fecha}} </p>
-                <p> {{empleado.cleinte}} </p>
+        <a href="{% url 'editar_pedido' pedido.codigo %}" class="text-decoration-none w-100" style="max-width: 600px;">
+            <div class="card mb-3 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    Codigo: {{pedido.codigo}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{pedido.cliente}}</h5>
+                    <p><b>Fecha: </b> {{pedido.fecha}}</p>
+                </div>
+
+            </div>
                 
-                <p></p>
-                </a>
+        </a>
             
-        </li>
         {% endfor %}
-    </ul>
 </main>
 
 

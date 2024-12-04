@@ -80,6 +80,8 @@ body, html {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     text-align: center;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
 }
     
@@ -106,8 +108,8 @@ body, html {
 }
 
 .mi-imagen {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     
 }
 
