@@ -24,7 +24,7 @@ class PedidoForm(ModelForm):
         model = Pedido
         fields = ['producto']
 
-    producto = forms.ModelMultipleChoiceField(
+        producto = forms.ModelMultipleChoiceField(
         queryset=Helado.objects.all(),  # Lista de productos disponibles
         widget=forms.CheckboxSelectMultiple,  # Puedes usar un widget para mostrar los productos como checkboxes
         required=True

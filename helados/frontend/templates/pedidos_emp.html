@@ -41,7 +41,13 @@ Cajero
                                     <h5 class="card-title">Detalle del pedido</h5>
                                     <p><b>Codigo: </b>{{pedido.codigo}}</p>
                                     <p><b>Fecha:</b> {{pedido.fecha}}</p>
-                                    <p><b>Producto:</b>{{pedido.producto}}</p>
+                                    <p><b>Productos:</b>
+                                        {% for helado in pedido.producto.all %}
+                                            {{ helado.nombre }} ({{ helado.sabor }})<br>
+                                        {% empty %}
+                                            No hay productos asociados.
+                                        {% endfor %}
+                                    </p>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Empleado</h5>

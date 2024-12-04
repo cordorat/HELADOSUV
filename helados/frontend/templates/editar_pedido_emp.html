@@ -8,15 +8,14 @@ Cajero
 {% block content %}
 
 <h2 class="dashboard-heading"> EDITAR PEDIDO AL DETAL </h2>
-{{error}}
 <main>
     
     <div class="left-column">
-        {{form.as_p}}
         <div style="display: inline-block;">
             <form action="" method="POST">
+                {{form.as_p}}
                 {% csrf_token %}
-                
+                {{error}}
                 <p></p>
                 <button type="submit" class="btn btn-outline-primary">
                     Guardar cambios
@@ -33,20 +32,20 @@ Cajero
                 </button>
             </form>
         </div>
-
         <a href="{% url 'editarpedidosemp' pedido.codigo %}">
-
     </div>
 
     <div class="right-column">
         <img src="{% static 'images/portapapeles.png' %}" alt="helado" width="300" height="300">
     </div>
-    
-</main>
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
     </a>
+    
+</main>
+
+    
 {% endblock %}
