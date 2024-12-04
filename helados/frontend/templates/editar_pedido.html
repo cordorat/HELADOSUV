@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
 {% block user %}
 Cajero
@@ -9,26 +10,35 @@ Cajero
 <h2 class="dashboard-heading"> EDITAR PEDIDO </h2>
 
 {{error}}
-{{form.as_p}}
-<div style="display: inline-block;">
-    <form action="" method="POST">
-        {% csrf_token %}
-        <p></p>
-        <button type="submit" class="btn btn-outline-primary">
-            Guardar cambios
-        </button>
-    </form>
-</div>
+<main>
+    <div class="left-column">
+        {{form.as_p}}
+        <div style="display: inline-block;">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <p></p>
+                <button type="submit" class="btn btn-outline-primary">
+                    Guardar cambios
+                </button>
+            </form>
+        </div>
 
-<div style="display: inline-block; margin-left: 10px;">
-    <form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
-        {% csrf_token %}
-        <p></p>
-        <button type="submit" class="btn btn-outline-primary">
-            Cancelar pedido
-        </button>
-    </form>
-</div>
+        <div style="display: inline-block; margin-left: 10px;">
+            <form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
+                {% csrf_token %}
+                <p></p>
+                <button type="submit" class="btn btn-outline-primary">
+                    Cancelar pedido
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="right-column">
+        <img src="{% static 'images/portapapeles.png' %}" alt="helado" width="300" height="300">
+    </div>
+</main>
+
 
 
 <a href="{% url 'editar_pedido' pedido.codigo %}">

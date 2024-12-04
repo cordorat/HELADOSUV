@@ -1,7 +1,20 @@
-{% extends 'layouts/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLVIDO SU CONTRASEÑA</title>
+    <link rel="stylesheet" href="{% static 'styles/pagina.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-background"></div>
+        <h1>OLVIDO SU CONTRASEÑA</h1>
+    </header> 
 
-{% block content %}
-    <h1>Buscar Correo</h1>
+<main>
+    <h2 class="dashboard-heading">Buscar Correo</h2>
 
     {% if form %}
         <form method="post">
@@ -15,7 +28,7 @@
         <p>Formulario no disponible.</p>
     {% endif %}
 
-    <h2>Resultados de búsqueda</h2>
+    <!--<h2>Resultados de búsqueda</h2>-->
 
     {% if user %}
         <ul>
@@ -33,4 +46,12 @@
     {% else %}
         <p>No se encontro el correo.</p>
     {% endif %}
-{% endblock %}
+</main>
+
+<a href="/" class="back-button" aria-label="Volver atrás">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+</a>
+</body>
+</html>

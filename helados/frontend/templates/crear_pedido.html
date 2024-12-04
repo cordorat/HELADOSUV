@@ -7,19 +7,28 @@ Cajero
 {% endblock %}
 
 {% block content %}
-    <h2 class="dashboard-heading">Crear Pedido</h2>
+    <h2 class="dashboard-heading">CREAR PEDIDO</h2>
 
     {{error}}
+    <main>
+        <div class="left-column">
+            <form action="/homeC/vendedoresCajero/crear_pedido/" method="POST">
+                {% csrf_token %}
+                {{form}}
+                {{form1}}
+        
+                <button type="submit" class="btn btn-outline-primary">
+                    Confirmar Pedido
+                </button>
+            </form>
+        </div>
 
-    <form action="/homeC/vendedoresCajero/crear_pedido/" method="POST">
-        {% csrf_token %}
-        {{form}}
-        {{form1}}
+        <div class="right-column">
+            <img src="{% static 'images/entrega-de-pedidos3.png' %}" alt="Pedidos" width="300" height="300">
+        </div>
+    </main>
 
-        <button type="submit" class="btn btn-outline-primary">
-            Confirmar Pedido
-        </button>
-    </form>
+    
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
