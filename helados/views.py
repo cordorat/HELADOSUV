@@ -502,4 +502,8 @@ def reporte_general(request):
         'productividad_promedio': productividad_promedio,
     }
 
-    return render(request, 'reporte_emp.html', contexto)      
+    return render(request, 'reporte_emp.html', contexto)
+
+def reporte_inventario(request):
+    helados = Helado.objects.all() 
+    return render(request, 'reporte_inventario.html', {'helados': helados})
