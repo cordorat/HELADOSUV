@@ -7,6 +7,7 @@ class Helado (models.Model):
     descripcion = models.CharField(max_length=200)
     activo  = models.BooleanField(default=True)
     valor = models.IntegerField (blank= False)
+    stock = models.IntegerField(blank=False, default=0)
 
     def __str__(self):
         return "Marca: " + self.marca + " - " + "Nombre: " +self.nombre 

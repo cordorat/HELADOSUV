@@ -11,7 +11,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 class agregarHeladoForm(ModelForm):
     class Meta:
         model = Helado
-        fields = ['marca' , 'nombre', 'descripcion', 'activo' , 'valor']
+        fields = ['marca' , 'nombre', 'descripcion', 'activo' , 'valor', 'stock']
 
 class CrearEmpleadoForm(ModelForm):
     class Meta:
