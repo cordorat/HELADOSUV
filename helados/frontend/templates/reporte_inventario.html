@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html'%}
+
+{% block user %}
+Cajero
+{% endblock %}
+
+{% block content%}
+    <h2 class="dashboard-heading">Reporte de Inventario</h2>
+    <main>
+        <table class="table">
+            <tr>
+                <th class="table-light">Marca</th>
+                <th class="table-light">Nombre</th>
+                <th class="table-light">Stock</th>
+                <th class="table-light">Precio</th>
+                <th class="table-light"> Activo</th>
+            </tr>
+            {% for helado in helados %}
+            <tr>
+                <td>{{ helado.marca }}</td>
+                <td>{{ helado.nombre }}</td>
+                <td>{{ helado.stock}} </td>
+                <td>{{ helado.valor }}</td>
+                <td>{{ helado.activo }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
+    
+
+    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+{% endblock %}

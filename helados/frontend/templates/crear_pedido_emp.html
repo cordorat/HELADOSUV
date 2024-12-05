@@ -11,23 +11,29 @@ Cajero
     
     {{error}}
     <main>
-        <form action="/homeC/pedidosCajero/crear_pedido_emp/" method="POST">
-            {% csrf_token %}
-            {{form}}
-            {{form1}}
-    
-            <br>
-            <br>
-            <button type="submit" class="btn btn-outline-primary">
-                Confirmar Pedido
-            </button>
-        </form>
-    
-        <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-        </a>
+        <div class="left-column">
+            <form action="/homeC/pedidosCajero/crear_pedido_emp/" method="POST">
+                {% csrf_token %}
+                {{form}}
+                {{form1}}
+        
+                <br>
+                <br>
+                <button type="submit" class="btn btn-outline-primary">
+                    Confirmar Pedido
+                </button>
+            </form>
+        </div>
+        
+        <div class="right-column">
+            <img src="{% static 'images/entrega-de-pedidos2.png' %}" alt="Pedidos" width="300" height="300">
+        </div>
+        
     </main>
+    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
     
 {% endblock %}

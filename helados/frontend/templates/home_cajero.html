@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
 {% block user %}
 Cajero
@@ -14,7 +15,7 @@ Cajero
             <div class="col-12 col-md-4">
                 <div class="card p-3">
                     <a href="pedidosCajero">
-                        <img src="../static/images/entrega-rapida.png" class="card-img-top" alt="pedidos">
+                        <img src="{% static 'images/caja.png' %}" class="card-img-top" alt="pedidos">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Vendedores</h5>
@@ -26,7 +27,7 @@ Cajero
             <div class="col-12 col-md-4">
                 <div class="card p-3">
                     <a href="vendedoresCajero">
-                        <img src="../static/images/entrega-rapida.png" class="card-img-top" alt="vendedores">
+                        <img src="{% static 'images/entrega-rapida.png' %}" class="card-img-top" alt="vendedores">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Pedido</h5>

@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
 {% block user %}
 Cajero
@@ -6,34 +7,45 @@ Cajero
 
 {% block content %}
 
-<h2 class="dashboard-heading"> Editar Pedido al Detal </h2>
+<h2 class="dashboard-heading"> EDITAR PEDIDO AL DETAL </h2>
+<main>
+    
+    <div class="left-column">
+        <div style="display: inline-block;">
+            <form action="" method="POST">
+                {{form.as_p}}
+                {% csrf_token %}
+                {{error}}
+                <p></p>
+                <button type="submit" class="btn btn-outline-primary">
+                    Guardar cambios
+                </button>
+            </form>
+        </div>
 
-{{error}}
+        <div style="display: inline-block; margin-left: 10px;">
+            <form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
+                {% csrf_token %}
+                <p></p>
+                <button type="submit" class="btn btn-outline-primary">
+                    Cancelar pedido
+                </button>
+            </form>
+        </div>
+        <a href="{% url 'editarpedidosemp' pedido.codigo %}">
+    </div>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    {{error}}
-    <p></p>
-    <button type="submit" class="btn btn-outline-primary">
-        Guardar cambios
-    </button>
-</form>
-
-<form action="{% url 'cancelar_pedidoemp' pedido.codigo %}" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    {{error}}
-    <p></p>
-    <button type="submit" class="btn btn-outline-primary">
-        Cancelar pedido
-    </button>
-</form>
-<a href="{% url 'editarpedidosemp' pedido.codigo %}">
+    <div class="right-column">
+        <img src="{% static 'images/portapapeles.png' %}" alt="helado" width="300" height="300">
+    </div>
 
     <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
     </a>
+    
+</main>
+
+    
 {% endblock %}
