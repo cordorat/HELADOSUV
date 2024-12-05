@@ -27,7 +27,11 @@ Admin
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ empleado.nombre }} {{ empleado.apellido }}</h5>
-                    <p><b>Activo: </b> {{ empleado.activo }}</p>
+                    <p><b>Activo: </b> {% if empleado.activo %}
+                        ✅
+                    {% else %}
+                        ❌
+                    {% endif %}</p>
                 </div>
             </div>
         </a>
@@ -36,7 +40,7 @@ Admin
     </div>
 
     <!-- Botón para volver atrás -->
-    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+    <a href="javascript:void(0);" class="back-button" onclick="window.location.href='{% url 'gestionarEmpleado' %}';">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>

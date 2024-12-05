@@ -1,34 +1,37 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayuda</title>
     <link rel="stylesheet" href="{% static 'styles/pagina.css' %}">
 </head>
+
 <body>
     <header>
         <div class="header-background"></div>
         <h1>AYUDA</h1>
-    </header> 
+    </header>
 
     <main>
         <section>
             <h2>Contáctanos</h2>
-                
-            <p>¿Tienes preguntas, comentarios o sugerencias? ¡Nos encantaría saber de ti! Aquí tienes varias formas de ponerte en contacto con nosotros:
+
+            <p>¿Tienes preguntas, comentarios o sugerencias? ¡Nos encantaría saber de ti! Aquí tienes varias formas de
+                ponerte en contacto con nosotros:
             </p>
-                
+
         </section>
-        
+
         <section>
             <h2>Información de contacto </h2>
-            
+
             <h3>Teléfono:</h3>
 
             <p>+57 323 367 7828</p>
-            
+
             <h3>Correo electronico:</h3>
 
             <p>soporteheladosuv@gmail.com</p>
@@ -38,14 +41,14 @@
             <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
             <p> Sábados: 10:00 AM - 2:00 PM</p>
             <p>Domingos: Cerrado</p>
-         
+
         </section>
     </main>
-    <a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <a href="javascript:void(0);" class="back-button" onclick="window.location.href='{% url 'homeA' %}';"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
     </a>
 
 </body>
+
 </html>

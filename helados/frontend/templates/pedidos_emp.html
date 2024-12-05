@@ -82,7 +82,7 @@ Cajero
                     <p><b>Codigo: </b>{{pedido.codigo}}</p>
                     <p><b>Fecha:</b> {{pedido.fecha}}</p>
                     <p><b>Producto:</b></p>
-                    <ul>
+                    <ul style="list-style-type: none; padding: 0; margin: 0;">
                         {% for helado in pedido.producto.all %}
                         <li>{{ helado.marca }} - {{ helado.nombre }}</li>
                         {% endfor %}
@@ -105,7 +105,7 @@ Cajero
 
 </main>
 
-<a href="javascript:void(0);" class="back-button" onclick="window.history.back();">
+<a href="javascript:void(0);" class="back-button" onclick="window.location.href='{% url 'pedidosCajero' %}';">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>

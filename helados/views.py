@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-import django.db 
+import django.db
 from .forms import agregarHeladoForm, CrearEmpleadoForm, PedidoForm, BusquedaForm, ClienteForm, PedidoEmpleadoForm, BusquedaCodigoForm, CambiarContraseniaForm
 from .models import Helado
 from .models import Empleado
@@ -11,8 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CustomPasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-
-
 
 
 # Create your views here.
@@ -209,14 +207,14 @@ def crearPedido(request):
         })
     else:
         try:
-            
+
             form = PedidoForm(request.POST)
             form1 = ClienteForm(request.POST)
             nuevo_cliente = form1.save()
 
             nuevo_pedido = form.save(commit=False)
             nuevo_pedido.cliente = nuevo_cliente
-            
+
             nuevo_pedido.save()
 
             return redirect('pedidos')
@@ -235,11 +233,25 @@ def crearPedidoEmpleado(request):
     else:
         try:
             form = PedidoEmpleadoForm(request.POST)
-            nuevo_pedido = form.save(commit=False)
+            if form.is_valid():
+                # Guarda el pedido principal sin los productos aún
+                nuevo_pedido = form.save(commit=False)
+                nuevo_pedido.save()
 
-            nuevo_pedido.save()
+                # Asigna los productos seleccionados
+                productos = form.cleaned_data.get(
+                    'producto')  # Campo ManyToMany
+                if productos:
+                    # Usa 'set' para asignar múltiples relaciones
+                    nuevo_pedido.producto.set(productos)
 
-            return redirect('pedidosemp')
+                    # Redirige a la lista de pedidos
+                    return redirect('pedidosemp')
+            else:
+                    return render(request, 'crear_pedido_emp.html', {
+                        'form': form,
+                        'error': 'Datos inválidos en el formulario'
+                    })
         except ValueError:
             return render(request, 'crear_pedido_emp.html', {
                 'form': PedidoEmpleadoForm,
@@ -257,25 +269,27 @@ def pedidosEmp(request):
     if request.method == 'POST':
         buscar_realizado = True
         if form.is_valid():
-                query = form.cleaned_data['query']
-                if query:
-                    try:
-                        query = int(query)
-                        pedidos = pedidos.filter(codigo=query)
-                        if not pedidos:
-                            error_busqueda = "No existe el pedido"
-                    except ValueError:
-                        error_busqueda = "El codigo debe ser valido"
-                else:
-                    error_busqueda = "El campo no puede estar vacio"
-                    
-    
-    return render(request, 'pedidos_emp.html', {'form': form, 
-                                                'pedidos': pedidos, 
-                                                'buscar_realizado': buscar_realizado, 
-                                                'error_busqueda' : error_busqueda})
+            query = form.cleaned_data['query']
+            if query:
+                try:
+                    query = int(query)
+                    pedidos = pedidos.filter(codigo=query)
+                    if not pedidos:
+                        error_busqueda = "No existe el pedido"
+                except ValueError:
+                    error_busqueda = "El codigo debe ser valido"
+            else:
+                error_busqueda = "El campo no puede estar vacio"
+
+
+    return render(request, 'pedidos_emp.html', {'form': form,
+                                                'pedidos': pedidos,
+                                                'buscar_realizado': buscar_realizado,
+                                                'error_busqueda': error_busqueda})
+
+
 def cancelarPedidoEmp (request, pedido_codigo):
-    pedido = get_object_or_404 (Pedido, pk = pedido_codigo)
+    pedido = get_object_or_404 (PedidoEmpleado, pk= pedido_codigo)
     if request.method == 'POST':
         pedido.delete()
         return redirect('pedidosemp')
@@ -295,16 +309,14 @@ def buscarPedidoEmp(request):
             query = form.cleaned_data['query']
             if not query:
                 raise ValueError("El campo no puede estar vacio")
-            
+
             query = int(query)
             pedidos = pedidos.filter(codigo=query)
-        
-    
+
     except ValueError as e:
-            error_busqueda = str(e)
-            
-    return render(request, 'buscar_pedido_emp.html', {'form': form, 'pedidos': pedidos, 'buscar_realizado': buscar_realizado, 'error_busqueda' : error_busqueda})
-            
+        error_busqueda = str(e)
+
+    return render(request, 'buscar_pedido_emp.html', {'form': form, 'pedidos': pedidos, 'buscar_realizado': buscar_realizado, 'error_busqueda': error_busqueda})
 
 
 def editarPedidoEmp(request, pedido_codigo):
@@ -330,8 +342,9 @@ def pedidos(request):
     pedidos = Pedido.objects.all()
     return render(request, 'pedidos.html', {'pedidos': pedidos})
 
+
 def cancelarPedido (request, pedido_codigo):
-    pedido = get_object_or_404 (Pedido, pk = pedido_codigo)
+    pedido = get_object_or_404 (Pedido, pk= pedido_codigo)
     if request.method == 'POST':
         pedido.delete()
         return redirect('pedidos')
@@ -385,15 +398,18 @@ def pedidosCajero(request):
 def cajaCajero(request):
     return render(request, 'caja_cajero.html')
 
+
 def ayuda(request):
-    return render(request,'ayuda.html')
+    return render(request, 'ayuda.html')
+
 
 def olvidar(request):
     form = BusquedaForm(request.POST)
     form2 = CambiarContraseniaForm(request.POST)
 
     print("Formulario Busqueda:", form)  # Verificar el formulario de búsqueda
-    print("Formulario Cambio Contraseña:", form2)  # Verificar el formulario de contraseña
+    # Verificar el formulario de contraseña
+    print("Formulario Cambio Contraseña:", form2)
 
     usuario = None  # Inicializamos la variable usuario
 
@@ -401,9 +417,11 @@ def olvidar(request):
         query = form.cleaned_data['query']
         if query:
             # Filtra los usuarios por correo electrónico
-            
-            usuario = User.objects.filter(email__icontains=query).first()  # Obtiene el primer usuario que coincida
-            print("Usuario encontrado:", usuario)  # Verificamos que el usuario sea correcto
+
+            # Obtiene el primer usuario que coincida
+            usuario = User.objects.filter(email__icontains=query).first()
+            # Verificamos que el usuario sea correcto
+            print("Usuario encontrado:", usuario)
 
             if usuario:
                 if request.method == 'POST':  # Solo procesamos si el método es POST
@@ -418,11 +436,15 @@ def olvidar(request):
                         usuario.save()  # Guarda los cambios
 
                         # Mantener la sesión activa después de cambiar la contraseña
-                        messages.success(request, "¡Tu contraseña ha sido cambiada exitosamente!")
-                        return redirect('home')  # Redirige a la página de inicio o donde prefieras
+                        messages.success(
+                            request, "¡Tu contraseña ha sido cambiada exitosamente!")
+                        # Redirige a la página de inicio o donde prefieras
+                        return redirect('home')
                     else:
-                        print("Errores en el formulario de cambio de contraseña:", form2.errors)
-                        messages.error(request, "Por favor, corrige los errores en el formulario.")
+                        print(
+                            "Errores en el formulario de cambio de contraseña:", form2.errors)
+                        messages.error(
+                            request, "Por favor, corrige los errores en el formulario.")
                 else:
                     # Si no es POST, muestra el formulario vacío
                     form2 = CambiarContraseniaForm()
@@ -430,15 +452,16 @@ def olvidar(request):
                 return render(request, 'olvidar.html', {'form': form, 'form2': form2})
             else:
                 # Si no se encuentra el usuario
-                messages.error(request, "No se encontró un usuario con ese correo.")
+                messages.error(
+                    request, "No se encontró un usuario con ese correo.")
                 return render(request, 'olvidar.html', {'form': form, 'form2': form2})
         else:
             # Si no se ingresa un correo en el formulario de búsqueda
-            messages.error(request, "Por favor, ingresa un término de búsqueda.")
+            messages.error(
+                request, "Por favor, ingresa un término de búsqueda.")
             return render(request, 'olvidar.html', {'form': form, 'form2': form2})
 
     return render(request, 'olvidar.html', {'form': form, 'form2': form2})
-
 
 
 @login_required
@@ -447,7 +470,8 @@ def editarPerfil(request):
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             user = form.save()  # Guarda la nueva contraseña
-            update_session_auth_hash(request, user)  # Mantiene al usuario logueado
+            # Mantiene al usuario logueado
+            update_session_auth_hash(request, user)
             messages.success(request, '¡Tu contraseña se cambió con éxito!')
             return redirect('home')  # Redirige a la página deseada
         else:
@@ -456,6 +480,6 @@ def editarPerfil(request):
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, 'editar_perfil.html', {'form': form})
 
-def reporte_inventario(request): 
-    helados = Helado.objects.all() 
+def reporte_inventario(request):
+    helados = Helado.objects.all()
     return render(request, 'reporte_inventario.html', {'helados': helados})
