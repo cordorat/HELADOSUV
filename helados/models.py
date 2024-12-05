@@ -45,4 +45,8 @@ class PedidoEmpleado (models.Model):
     producto = models.ManyToManyField(Helado, related_name='pedidosemp')
     empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='pedidosemp') 
 
+class RegistroHoras(models.Model):
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name="registros")
+    horas_trabajadas = models.DecimalField(max_digits=5, decimal_places=2)
+    fecha = models.DateField()
     

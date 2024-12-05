@@ -11,6 +11,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CustomPasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.db.models import Sum, Count, F, FloatField
+from .models import RegistroHoras
+from django.db.models.functions import Cast
+
+
 
 
 # Create your views here.
@@ -480,6 +485,37 @@ def editarPerfil(request):
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, 'editar_perfil.html', {'form': form})
 
+def reporte_general(request):
+    # Total de empleados
+    total_empleados = Empleado.objects.count()
+
+    # Total de horas trabajadas
+    horas_totales = RegistroHoras.objects.aggregate(total_horas=Sum('horas_trabajadas'))['total_horas'] or 0
+
+    # Total de pedidos (número de registros en Pedido)
+    pedidos_totales = PedidoEmpleado.objects.count()
+
+    # Productividad por empleado: total de pedidos ÷ total de horas trabajadas por empleado
+    empleados_productividad = Empleado.objects.annotate(
+        total_horas=Sum('registros__horas_trabajadas'),
+        total_pedidos=Count('pedidosemp'),
+        productividad=Cast(F('total_pedidos'), output_field=FloatField()) / Cast(F('total_horas'), output_field=FloatField())).exclude(total_horas=0)  # Excluir empleados sin horas trabajadas para evitar divisiones por cero
+    for empleado in empleados_productividad:
+        print(f"Empleado: {empleado.nombre}, Horas: {empleado.total_horas}, Pedidos: {empleado.total_pedidos}, Productividad: {empleado.productividad}")
+    # Productividad promedio
+    productividad_promedio = empleados_productividad.aggregate(
+        promedio_productividad=Sum('productividad') / Count('id')
+    )['promedio_productividad'] or 0
+
+    contexto = {
+        'total_empleados': total_empleados,
+        'horas_totales': horas_totales,
+        'pedidos_totales': pedidos_totales,
+        'productividad_promedio': productividad_promedio,
+    }
+
+    return render(request, 'reporte_emp.html', contexto)
+
 def reporte_inventario(request):
-    helados = Helado.objects.all()
+    helados = Helado.objects.all() 
     return render(request, 'reporte_inventario.html', {'helados': helados})
