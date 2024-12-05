@@ -235,11 +235,25 @@ def crearPedidoEmpleado(request):
     else:
         try:
             form = PedidoEmpleadoForm(request.POST)
-            nuevo_pedido = form.save(commit=False)
+            if form.is_valid():
+                # Guarda el pedido principal sin los productos aún
+                nuevo_pedido = form.save(commit=False)
+                nuevo_pedido.save()
 
-            nuevo_pedido.save()
+                # Asigna los productos seleccionados
+                productos = form.cleaned_data.get(
+                    'producto')  # Campo ManyToMany
+                if productos:
+                    # Usa 'set' para asignar múltiples relaciones
+                    nuevo_pedido.producto.set(productos)
 
-            return redirect('pedidosemp')
+                    # Redirige a la lista de pedidos
+                    return redirect('pedidosemp')
+            else:
+                    return render(request, 'crear_pedido_emp.html', {
+                        'form': form,
+                        'error': 'Datos inválidos en el formulario'
+                    })
         except ValueError:
             return render(request, 'crear_pedido_emp.html', {
                 'form': PedidoEmpleadoForm,
