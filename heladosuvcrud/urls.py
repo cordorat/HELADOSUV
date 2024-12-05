@@ -75,5 +75,6 @@ urlpatterns = [
 
     #Reportes
     path('reporte_inventario/', views.reporte_inventario, name='reporte_inventario'),
+    path('reporte_emp/', views.reporte_general, name='reporte_emp'),
     
 ]
