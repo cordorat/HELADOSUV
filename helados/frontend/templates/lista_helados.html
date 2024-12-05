@@ -31,7 +31,12 @@ Admin
                             </p>
 
                             <p>
-                                <b>Activo: </b> {{ helado.activo }}
+                                <b>Activo:</b> 
+                                {% if helado.activo %}
+                                    ✅
+                                {% else %}
+                                    ❌
+                                {% endif %}
                             </p>
 
                             <p>
@@ -40,6 +45,10 @@ Admin
 
                             <p>
                                 <b>Precio:</b>{{helado.valor}}
+                            </p>
+
+                            <p>
+                                <b>Stock:</b>{{helado.stock}}
                             </p>
 
                         </div>
