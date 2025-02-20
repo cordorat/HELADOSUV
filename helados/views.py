@@ -16,8 +16,6 @@ from .models import RegistroHoras
 from django.db.models.functions import Cast
 
 
-
-
 # Create your views here.
 
 
@@ -485,6 +483,9 @@ def editarPerfil(request):
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, 'editar_perfil.html', {'form': form})
 
+def reporte_inventario(request):
+    helados = Helado.objects.all()
+    return render(request, 'reporte_inventario.html', {'helados': helados})
 def reporte_general(request):
     # Total de empleados
     total_empleados = Empleado.objects.count()
